@@ -9,3 +9,13 @@ It is available for me to use under a GPL license.
 # What is it?
 
 "Portal" Magic Mirror is an application written in Python designed for the Raspberry Pi.
+
+# Dependancies
+
+## PyQt5
+code()
+pip3 install pyqt5
+
+## Tweepy
+code()
+pip3 install tweepy
