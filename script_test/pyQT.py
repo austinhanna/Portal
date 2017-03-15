@@ -1,6 +1,7 @@
+import sys
+import time
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
-import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel
 from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtGui import QIcon
@@ -28,7 +29,7 @@ def window():
 
     la1.setGeometry(560,330,1100,500)
     la1.setText("Welcome") # Set label text
-
+ 
     w.setWindowTitle("Test!") # Set window title text
 
     # Color #
