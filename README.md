@@ -13,9 +13,9 @@ It is available for me to use under a GPL license.
 # Dependancies
 
 ## PyQt5
-code()
-pip3 install pyqt5
+
+' pip3 install pyqt5 '
 
 ## Tweepy
-code()
-pip3 install tweepy
+
+' pip3 install tweepy '
