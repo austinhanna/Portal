@@ -1,9 +1,11 @@
+# Tweepy Imports #
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
-import time
 import json
+import time
 
+# Tweepy #
 ckey = 'WEzuoWntc2NqKVg0FSnhlmDNR'
 csecret = 'Rq4dcMN9gGo1JWaglibGUDqDLLPFpPkbQOhYlMSaJRfPcIjnuF'
 atoken = '1905281930-DWTNXwF3F50Zu5zfbKEvKssuu9ejkbawHN06Tga'
@@ -18,8 +20,13 @@ class listener(StreamListener):
 
         username = all_data["user"]["screen_name"].encode('UTF-8')
 
-        time.sleep(5)
+        time.sleep(10)
         print(username,tweet)
+        fo = open("tweet.txt","ab")
+        fo.write(tweet)
+        fo.close()
+
+
 
 
         return True

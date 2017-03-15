@@ -29,7 +29,7 @@ def window():
 
     la1.setGeometry(560,330,1100,500)
     la1.setText("Welcome") # Set label text
- 
+
     w.setWindowTitle("Test!") # Set window title text
 
     # Color #
