@@ -18,7 +18,9 @@ class listener(StreamListener):
 
         username = all_data["user"]["screen_name"].encode('UTF-8')
 
+        time.sleep(5)
         print(username,tweet)
+
 
         return True
 
@@ -29,4 +31,4 @@ auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["trump"])
+twitterStream.filter(track=["plane"])
