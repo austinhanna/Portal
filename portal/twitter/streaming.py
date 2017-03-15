@@ -14,9 +14,9 @@ class listener(StreamListener):
     def on_data(self, data):
         all_data = json.loads(data)
 
-        global tweet = all_data["text"].encode('UTF-8')
+        tweet = all_data["text"].encode('UTF-8')
 
-        global username = all_data["user"]["screen_name"].encode('UTF-8')
+        username = all_data["user"]["screen_name"].encode('UTF-8')
 
         time.sleep(5)
         print(username,tweet)
