@@ -1,5 +1,6 @@
 import sys
 import time
+import datetime
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel
@@ -27,10 +28,19 @@ def window():
     fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white)
     la1.setPalette(fontp)
 
-    with open('tweet.txt', 'r') as content_file:
-        content = content_file.read()
-    la1.setGeometry(560,330,1100,500)
-    la1.setText(content) # Set label text
+
+    la1.setGeometry(0,0,1100,500)
+    def update_label():
+        with open('tweet.txt', 'r') as content_file:
+            content = content_file.read()
+        current_time = str(datetime.datetime.now().time())
+        la1.setText(content) # Split this! Add @ and says.
+
+    timer = QtCore.QTimer()
+    timer.timeout.connect(update_label)
+    timer.start(1000)  # every 10,000 milliseconds
+
+     # Set label text
 
     w.setWindowTitle("Test!") # Set window title text
 
@@ -41,7 +51,7 @@ def window():
     w.setPalette(p) #
 
     w.show()
-    w.showFullScreen() # Make window fullscreen
+    #w.showFullScreen() # Make window fullscreen
     sys.exit(app.exec_())
 
 window()
