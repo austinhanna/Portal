@@ -17,8 +17,15 @@ It is available for me to use under a GPL license.
 Go [here](https://www.riverbankcomputing.com/software/pyqt/download5) to install PyQt5 and read documentation
 
 Or in your console you can run:
-'pip3 install pyqt5'
+```python
+pip3 install pyqt5
+```
 
 ## Tweepy
 
-' pip3 install tweepy '
+Visit their [Github Page here](https://github.com/tweepy/tweepy) or install through console.
+
+```python
+pip3 install tweepy
+```
+
