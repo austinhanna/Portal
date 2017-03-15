@@ -20,14 +20,11 @@ class listener(StreamListener):
 
         username = all_data["user"]["screen_name"].encode('UTF-8')
 
-        time.sleep(10)
+        time.sleep(3)
         print(username,tweet)
-        fo = open("tweet.txt","ab")
-        fo.write(tweet)
+        fo = open("tweet.txt","wb")
+        fo.write(username+tweet)
         fo.close()
-
-
-
 
         return True
 
@@ -38,4 +35,4 @@ auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["plane"])
+twitterStream.filter(track=["Python"])
