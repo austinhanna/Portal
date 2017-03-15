@@ -31,10 +31,10 @@ def window():
 
     la1.setGeometry(0,0,1100,500)
     def update_label():
-        with open('tweet.txt', 'r') as content_file:
+        with open('tweet.txt', 'r',encoding="utf8") as content_file:
             content = content_file.read()
         current_time = str(datetime.datetime.now().time())
-        la1.setText(content) # Split this! Add @ and says.
+        la1.setText("@"+content) # Split this! Add @ and says.
 
     timer = QtCore.QTimer()
     timer.timeout.connect(update_label)
