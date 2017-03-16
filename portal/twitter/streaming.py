@@ -11,10 +11,10 @@ cfg = configparser.ConfigParser()
 
 # Twitter Auth Codes #
 cfg.read('config.ini')
-ckey = cfg.get('auth', 'ckey')
-csecret = cfg.get('auth', 'csec')
-atoken = cfg.get('auth', 'atok')
-asecret = cfg.get('auth', 'asec')
+ckey = cfg.get('Auth', 'ckey')
+csecret = cfg.get('Auth', 'csec')
+atoken = cfg.get('Auth', 'atok')
+asecret = cfg.get('Auth', 'asec')
 
 class listener(StreamListener):
 
