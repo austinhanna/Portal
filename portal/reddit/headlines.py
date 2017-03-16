@@ -1,4 +1,6 @@
 import praw
-r = praw.Reddit(user_agent='windows:com.itsaustinh.portal:v0.1.0 (by /u/Swagmanhanna)')
-for item in r.get_top():
-    print(item)
+
+reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
+                     client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
+for submission in reddit.front.hot():
+    print(submission)
