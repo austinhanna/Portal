@@ -4,7 +4,10 @@ from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 import json
 import time
+import configparser
 
+# Config Parser
+cfg = configparser.ConfigParser()
 # Tweepy #
 ckey = 'WEzuoWntc2NqKVg0FSnhlmDNR'
 csecret = 'Rq4dcMN9gGo1JWaglibGUDqDLLPFpPkbQOhYlMSaJRfPcIjnuF'
@@ -34,5 +37,7 @@ class listener(StreamListener):
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
+cfg.read('config.ini')
+keyword = cfg.get('General','keyword')
 twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["austin"])
+twitterStream.filter(track=[keyword])
