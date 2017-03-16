@@ -37,7 +37,7 @@ def twittermodule():
 
     timer = QtCore.QTimer()
     timer.timeout.connect(update_label)
-    timer.start(3000)  # Check for new tweet every second
+    timer.start(1000)  # Check for new tweet every second
 
      # Set label text
     w.setWindowTitle("Twitter") # Set window title text
