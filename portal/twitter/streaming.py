@@ -8,11 +8,13 @@ import configparser
 
 # Config Parser
 cfg = configparser.ConfigParser()
-# Tweepy #
-ckey = 'WEzuoWntc2NqKVg0FSnhlmDNR'
-csecret = 'Rq4dcMN9gGo1JWaglibGUDqDLLPFpPkbQOhYlMSaJRfPcIjnuF'
-atoken = '1905281930-DWTNXwF3F50Zu5zfbKEvKssuu9ejkbawHN06Tga'
-asecret = '2GaOj1TTMGY2ZYEXkOOolZRipIyu9cdB41X5Bkj2W4UkA'
+
+# Twitter Auth Codes #
+cfg.read('config.ini')
+ckey = cfg.get('auth', 'ckey')
+csecret = cfg.get('auth', 'csec')
+atoken = cfg.get('auth', 'atok')
+asecret = cfg.get('auth', 'asec')
 
 class listener(StreamListener):
 

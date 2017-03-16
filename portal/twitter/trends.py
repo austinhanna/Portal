@@ -1,14 +1,16 @@
 import tweepy
+import configparser
+cfg = configparser.ConfigParser()
 
-consumer_key = 'WEzuoWntc2NqKVg0FSnhlmDNR'
-consumer_secret = 'Rq4dcMN9gGo1JWaglibGUDqDLLPFpPkbQOhYlMSaJRfPcIjnuF'
-access_token = '1905281930-DWTNXwF3F50Zu5zfbKEvKssuu9ejkbawHN06Tga'
-access_token_secret = '2GaOj1TTMGY2ZYEXkOOolZRipIyu9cdB41X5Bkj2W4UkA'
-# OAuth process, using the keys and tokens
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+cfg.read('config.ini')
+ckey = cfg.get('Auth', 'ckey')
+csecret = cfg.get('Auth', 'csec')
+atoken = cfg.get('Auth', 'atok')
+asecret = cfg.get('Auth', 'asec')
+
+auth = tweepy.OAuthHandler(ckey, csecret)
+auth.set_access_token(atoken, asecret)
 api = tweepy.API(auth)
-
 trends1 = api.trends_place(1) # from the end of your code
 # trends1 is a list with only one element in it, which is a
 # dict which we'll put in data.
@@ -18,5 +20,8 @@ trends = data['trends']
 # grab the name from each trend
 names = [trend['name'] for trend in trends]
 # put all the names together with a ' ' separating them
-trendsName = ' '.join(names)
+trendsName = ' '.join(names).encode('UTF-8')
+
+fo = open('trends.txt','wb')
+fo.write(trendsName)
 print(trendsName)
