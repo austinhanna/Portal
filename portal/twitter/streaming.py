@@ -17,7 +17,7 @@ atoken = cfg.get('Auth', 'atok')
 asecret = cfg.get('Auth', 'asec')
 
 #enabled = cfg.get('Twitter Module', 'Enabled')
-if
+#if
 class listener(StreamListener):
 
     def on_data(self, data):
