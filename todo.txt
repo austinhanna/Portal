@@ -1,0 +1,18 @@
+Main Program
+- Main
+  - Twitter
+    - Ran Seperatley
+    - Read from file every 3 seconds to minimize load
+  - Time
+    - Update every second
+    - 12/24hr Format
+    - Easy time-zone switch
+    -
+  - Reddit
+    - Headlines
+      - From set subs or just /all/
+        - Max # of subs
+  - Weather
+    - Find a damn API
+    - C/F
+    - Forecast
