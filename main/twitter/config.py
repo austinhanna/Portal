@@ -5,11 +5,10 @@ config['General'] = {}
 config['Auth'] = {}
 ########################
 
-
-## Edit below this line! ##
+keyword = input("What keyword would you like to use? ")
 
 # Which keyword would you like to show tweets from?
-config['General']['Keyword'] = 'IEM' # Show tweets by keyword
+config['General']['Keyword'] = keyword # Show tweets by keyword
 #config['General']['Trend'] = '#Python' -- To be added soon, Show tweets by trend
 #config['General']['Person'] = '@Python' -- To be added soon, Show tweets by person
 #blacklist = ['enter words that tweets may contain you don't want to see...'] # This will filter any tweet that has any keyword in it. Opposite of the Keyword setting above.

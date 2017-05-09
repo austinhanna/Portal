@@ -1,6 +1,7 @@
 import sys
 import time
 import datetime
+import os
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel
@@ -30,7 +31,7 @@ def twittermodule():
 
     la1.setGeometry(0,0,2500,500) # Label size and positioning
     def update_label():
-        with open('tweet.txt', 'r',encoding="utf8") as content_file:
+        with open('store/tweet.txt', 'r',encoding="utf8") as content_file:
             content = content_file.read()
         current_time = str(datetime.datetime.now().time())
         la1.setText(content) # Split this! Add @ and says.
@@ -48,6 +49,7 @@ def twittermodule():
     p.setColor(w.backgroundRole(), Qt.black) # Set window color
     w.setPalette(p) #
     w.show()
+    os.system("python streaming.py 1")
     #w.showFullScreen() # Make window fullscreen
     sys.exit(app.exec_())
 

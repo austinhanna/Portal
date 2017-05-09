@@ -81,7 +81,7 @@ def cunfig():
     ## Edit below this line! ##
     # General Settings #
 
-    config['General']['FirstTime'] = 'ye'
+    config['General']['firstboot'] = 'Enable'
 
     # Placement Settings #
 
