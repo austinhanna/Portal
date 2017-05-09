@@ -1,0 +1,4 @@
+#import os
+#os.system('python test.py 1')
+
+How to run script from another script.
