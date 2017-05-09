@@ -1,7 +1,7 @@
 Main Program
 - Main
   - Twitter
-    - Ran Seperatley
+    - Ran Separatley
     - Read from file every 3 seconds to minimize load
   - Time
     - Update every second

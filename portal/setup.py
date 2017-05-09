@@ -1,65 +1,71 @@
-# DO NOT TOUCH THESE. #
+# # # # # # # # # # # # # # # # #
 import configparser
 config = configparser.ConfigParser()
-config['General'] = {}
-config['Placement'] = {}
-config['Modules'] = {}
-config['Time Module'] = {}
-config['Weather Module'] = {}
-config['Twitter Module'] = {}
-########################
+# # # # # # # # # # # # # # # # #
+def config():
+    # If you are making a module you can add it's config below. #
+    # config['NAME'] = {}
+    config['General'] = {}
+    config['Placement'] = {}
+    config['Modules'] = {}
+    config['Time Module'] = {}
+    config['Weather Module'] = {}
+    config['Twitter Module'] = {}
+    config['News Module'] = {}
 
-## Edit below this line! ##
-# General Settings #
+    # # # # # # # # # # # # # # # # #
 
-config['General']['FirstTime'] = 'True'
+    ## Edit below this line! ##
+    # General Settings #
 
-# Placement Settings #
+    config['General']['FirstTime'] = 'True'
 
-config['Placement']['top_left'] = 'nil'
-config['Placement']['top_right'] = 'nil'
-config['Placement']['bottom_left'] = 'nil'
-config['Placement']['bottom_right'] = 'nil'
-config['Placement']['middle'] = 'nil'
-config['Placement']['bottom'] = 'nil'
+    # Placement Settings #
 
-# Modules #
+    config['Placement']['top_left'] = 'nil'
+    config['Placement']['top_right'] = 'nil'
+    config['Placement']['bottom_left'] = 'nil'
+    config['Placement']['bottom_right'] = 'nil'
+    config['Placement']['middle'] = 'nil'
+    config['Placement']['bottom'] = 'nil'
 
-config['Modules']['local_time'] = 'Enabled'
-config['Modules']['other_time'] = 'Disabled'
-config['Modules']['local_weather'] = 'Enabled'
-config['Modules']['other_weather'] = 'Disabled'
-config['Modules']['twitter_feed'] = 'Enabled'
-config['Modules']['news_ticker'] = 'Enabled'
+    # Modules #
 
-# Time Module #
+    config['Modules']['local_time'] = 'Enabled'
+    config['Modules']['other_time'] = 'Disabled'
+    config['Modules']['local_weather'] = 'Enabled'
+    config['Modules']['other_weather'] = 'Disabled'
+    config['Modules']['twitter_feed'] = 'Enabled'
+    config['Modules']['news_ticker'] = 'Enabled'
 
-config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
-config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
-config['Time Module']['other_time'] = ''
+    # Time Module #
 
-# Weather Module #
+    config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
+    config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
+    #config['Time Module']['other_time'] = ''
 
-config['Weather Module']['local_weather'] = 'Enabled'
-config['Weather Module']['country_name'] = 'nil'
-config['Weather Module']['city_name'] = 'nil'
+    # Weather Module #
 
-# Twitter Module #
+    config['Weather Module']['local_weather'] = 'Enabled'
+    config['Weather Module']['country_name'] = 'nil'
+    config['Weather Module']['city_name'] = 'nil'
 
-config['Twitter Module']['twitter_live_feed'] = 'Enabled'
-config['Twitter Module']['live_feed_keyword'] = 'Enabled'
-config['Twitter Module']['live_feed_word'] = 'nil'
-config['Twitter Module']['live_feed_trending'] = 'Disabled'
-config['Twitter Module']['live_feed_people'] = 'Disabled'
-config['Twitter Module']['live_feed_person'] = '@nil'
+    # Twitter Module #
 
-# News Module #
-#config['News Module'] = {}
-#config['News Module']['news_ticker'] = 'Enabled'
-#config['News Module'][''] = ''
+    config['Twitter Module']['twitter_live_feed'] = 'Enabled'
+    config['Twitter Module']['live_feed_keyword'] = 'Enabled'
+    config['Twitter Module']['live_feed_word'] = 'nil'
+    config['Twitter Module']['live_feed_trending'] = 'Disabled'
+    config['Twitter Module']['live_feed_people'] = 'Disabled'
+    config['Twitter Module']['live_feed_person'] = '@nil'
+
+    # News Module #
+
+    config['News Module']['news_ticker'] = 'Enabled'
+    config['News Module'][''] = ''
 
 
-# Okay don't touch this either. #
-with open('config.ini', 'w') as configfile:
-  config.write(configfile)
-#################################
+    # Okay don't touch this either. #
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
+# # # # # # # # # # # # # # # # #
