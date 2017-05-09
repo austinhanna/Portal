@@ -1,8 +1,46 @@
 # # # # # # # # # # # # # # # # #
 import configparser
+import time
 config = configparser.ConfigParser()
+virgin = True
 # # # # # # # # # # # # # # # # #
-def config():
+
+
+def configurator():
+    if virgin == True:
+        config['User Data'] = {}
+
+        ### Begin Info ###
+        print('Running Configurator...')
+        time.sleep(1)
+        print()
+        print()
+        time.sleep(1)
+        print('Welcome to the "Portal" Mirror Setup')
+        time.sleep(1)
+        print("This program will help you setup everything you need to get your mirror customised to your needs.")
+        time.sleep(1)
+        print("First, we will ask some simple questions.")
+        time.sleep(1)
+        print()
+        ###
+
+        ### User input ###
+        u_name = input('What should I call you? ')
+        print()
+        time.sleep(.4)
+        print('Hi, '+u_name+'!')
+        print()
+
+
+        
+        ### Append configs ###
+        config['User Data']['Name'] = u_name
+        with open('userdata.ini', 'w') as configfile:
+            config.write(configfile)
+configurator()
+
+def cunfig():
     # If you are making a module you can add it's config below. #
     # config['NAME'] = {}
     config['General'] = {}
@@ -68,4 +106,3 @@ def config():
     # Okay don't touch this either. #
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
-# # # # # # # # # # # # # # # # #
