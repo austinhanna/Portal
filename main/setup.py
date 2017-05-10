@@ -2,9 +2,8 @@
 import configparser
 import time
 config = configparser.ConfigParser()
-virgin = True
+virgin = True # make obsolete
 # # # # # # # # # # # # # # # # #
-
 
 def configurator():
     if virgin == True:
@@ -49,6 +48,8 @@ def configurator():
         print()
         news_en = input('Would you like to enable the News module?(True/False) ')
         print()
+        reddit_en = input('Would you like to enable the Reddit module?(True/False) ')
+        print()
         print('Writing to file...')
         time.sleep(1)
         print()
@@ -61,6 +62,7 @@ def configurator():
         return weath_en
         return twit_en
         return news_en
+        return reddit_en
         return u_name
 configurator()
 
