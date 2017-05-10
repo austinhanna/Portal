@@ -4,6 +4,7 @@ import time
 import datetime
 import os
 import configparser
+import random
 # pyQt stuff #
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
@@ -54,7 +55,6 @@ def startup():
         time.sleep(0.3)
         sys.stdout.write(char)
         sys.stdout.flush()
-    print("")
     print("Done!")
     print()
     time.sleep(.6)
@@ -62,7 +62,6 @@ def startup():
     main()
 
 def main():
-    print("Main Launched")
     def parentmodule():
         app = QtWidgets.QApplication(sys.argv)
 
@@ -99,7 +98,7 @@ def main():
         la1.move(10,10)
         la2.move(10,100)
         tweet.move(860,1000)
-        headline.move(10,500)
+        headline.move(10,1000)
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(0,0,1920,500)
         la1.setText("Hello")
@@ -117,16 +116,18 @@ def main():
         w.showFullScreen() # Make window fullscreen
 
         def update_label():
-            with open('bin/headlines.txt', 'r',encoding="utf-8") as headline_file:
-                reddit_content = headline_file.read()
+            #with open('bin/headlines.txt', 'r',encoding="utf-8") as headline_file:
+
+                #reddit_content = headline_file.read()
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             current_time = str(datetime.datetime.now().time())
             tweet.setText(tweet_content) # Split this! Add @ and says.
+            reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText(reddit_content)
         timer = QtCore.QTimer()
         timer.timeout.connect(update_label)
-        timer.start(1000)  # Check for new tweet/headline every second
+        timer.start(10000)  # Check for new tweet/headline every second
         sys.exit(app.exec_())
         auth = OAuthHandler(ckey, csecret)
         auth.set_access_token(atoken, asecret)
@@ -134,6 +135,7 @@ def main():
         keyword = cfg.get('Twitter Module','keyword')
         twitterStream = Stream(auth, listener())
         twitterStream.filter(track=[keyword])
+        print("Main Launched")
     parentmodule()
 
 # Launch Control #
