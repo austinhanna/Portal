@@ -13,7 +13,7 @@ import configparser
 cfg = configparser.ConfigParser()
 
 ## Get if first boot ###
-cfg.read('config.ini')
+cfg.read('bin/config.ini')
 fboot = cfg.get('General', 'firstboot')
 #print(cfg.get('General', 'firstboot')) # Some debug cause this issue took me 10 minutes....
 

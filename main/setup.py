@@ -11,6 +11,8 @@ def configurator():
         global weath_en
         global twit_en
         global news_en
+        global reddit_en
+        global subreddit
         global u_name
 
         ### Begin Info ###
@@ -49,6 +51,9 @@ def configurator():
         news_en = input('Would you like to enable the News module?(True/False) ')
         print()
         reddit_en = input('Would you like to enable the Reddit module?(True/False) ')
+        if reddit_en == 'True':
+            print("Write subreddit as is do not write /r/.")
+            subreddit = input("Which subreddit would you like to see headlines from? (Default /r/all) ")
         print()
         print('Writing to file...')
         time.sleep(1)
@@ -64,6 +69,7 @@ def configurator():
         return news_en
         return reddit_en
         return u_name
+        return subreddit
 configurator()
 
 def cunfig():
@@ -77,10 +83,10 @@ def cunfig():
     config['Weather Module'] = {}
     config['Twitter Module'] = {}
     config['News Module'] = {}
+    config['Reddit Module'] = {}
 
     # # # # # # # # # # # # # # # # #
 
-    ## Edit below this line! ##
     # General Settings #
 
     config['General']['firstboot'] = 'Enable'
@@ -100,45 +106,36 @@ def cunfig():
     config['Modules']['weather'] = weath_en
     config['Modules']['twitter_feed'] = twit_en
     config['Modules']['news_ticker'] = news_en
+    config['Modules']['reddit'] = reddit_en
 
     # Time Module #
+    config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
+    config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
 
-    if time_en == True:
-        config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
-        config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
-        #config['Time Module']['other_time'] = ''
-    else:
-        config['Time Module']['local_time'] = 'Disabled'
-        #config['Time Module']['get_from_system'] = 'Disabled' MAKE THIS SEPERATE...
     # Weather Module #
-
-    if weath_en == True:
-        config['Weather Module']['local_weather'] = 'Enabled'
-        #config['Weather Module']['country_name'] = 'nil'
-        #config['Weather Module']['city_name'] = 'nil'
-    else:
-        config['Weather Module']['local_weather'] = 'Disabled'
+    config['Weather Module']['local_weather'] = 'Enabled'
+    config['Weather Module']['country_name'] = 'nil'
+    config['Weather Module']['city_name'] = 'nil'
 
     # Twitter Module #
-    if twit_en == True:
-        config['Twitter Module']['twitter_live_feed'] = 'Enabled'
-        config['Twitter Module']['live_feed_keyword'] = 'Enabled'
-        config['Twitter Module']['live_feed_word'] = 'nil'
-        config['Twitter Module']['live_feed_trending'] = 'Disabled'
-        config['Twitter Module']['live_feed_people'] = 'Disabled'
-        config['Twitter Module']['live_feed_person'] = '@nil'
-    else:
-        print('do something here') # live feed disable
+    config['Twitter Module']['twitter_live_feed'] = 'Enabled'
+    config['Twitter Module']['live_feed_keyword'] = 'Enabled'
+    config['Twitter Module']['live_feed_word'] = 'nil'
+    config['Twitter Module']['live_feed_trending'] = 'Disabled'
+    config['Twitter Module']['live_feed_people'] = 'Disabled'
+    config['Twitter Module']['live_feed_person'] = '@nil'
 
     # News Module #
-    if news_en == True:
-        config['News Module']['news_ticker'] = 'Enabled'
-        config['News Module'][''] = ''
-    else:
-        config['News Module']['news_ticker'] = 'Enabled'
+    config['News Module']['news_ticker'] = 'Enabled'
+    config['News Module'][''] = ''
 
+    # Reddit Module #
+    config['Reddit Module']['Active'] = 'nil'
+    config['Reddit Module']['Subreddit'] = subreddit
+
+    # User Data Module #
     config['User Data']['Name'] = u_name
 
-    with open('config.ini', 'w') as configfile:
+    with open('bin/config.ini', 'w') as configfile:
         config.write(configfile)
 cunfig()
