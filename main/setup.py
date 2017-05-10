@@ -14,6 +14,11 @@ def configurator():
         global reddit_en
         global subreddit
         global u_name
+        global ckey
+        global csec
+        global atok
+        global asec
+        global keyword
 
         ### Begin Info ###
         print('Running Configurator...')
@@ -47,6 +52,16 @@ def configurator():
         weath_en = input('Would you like to enable the Weather module?(True/False) ')
         print()
         twit_en = input('Would you like to enable the Twitter module?(True/False) ')
+        if twit_en == 'True':
+            print("Paste keys as is and make sure there's no extra spaces!")
+            ckey = input("First we need your client key: ")
+            csec = input("Next, we need your client secret: ")
+            atok = input("Then, we need your access token: ")
+            asec = input("Finally, we need your access secret: ")
+            keyword = input("What tweets do you want to see? (Just a word or hashtag a tweet might contain, Like 'Vape')")
+            print("")
+            print("Thanks!")
+            time.sleep(1)
         print()
         news_en = input('Would you like to enable the News module?(True/False) ')
         print()
@@ -70,6 +85,11 @@ def configurator():
         return reddit_en
         return u_name
         return subreddit
+        return ckey
+        return csec
+        return atok
+        return asec
+        return keyword
 configurator()
 
 def cunfig():
@@ -82,6 +102,7 @@ def cunfig():
     config['Time Module'] = {}
     config['Weather Module'] = {}
     config['Twitter Module'] = {}
+    config['Twitter Auth'] = {}
     config['News Module'] = {}
     config['Reddit Module'] = {}
 
@@ -117,15 +138,20 @@ def cunfig():
 
     # Twitter Module #
     config['Twitter Module']['twitter_live_feed'] = 'Enabled'
-    config['Twitter Module']['live_feed_keyword'] = 'Enabled'
+    config['Twitter Module']['keyword'] = keyword
     config['Twitter Module']['live_feed_word'] = 'nil'
     config['Twitter Module']['live_feed_trending'] = 'Disabled'
     config['Twitter Module']['live_feed_people'] = 'Disabled'
     config['Twitter Module']['live_feed_person'] = '@nil'
 
+    # Twitter Auth #
+    config['Twitter Auth']['ckey'] = ckey
+    config['Twitter Auth']['csec'] = csec
+    config['Twitter Auth']['atok'] = atok
+    config['Twitter Auth']['asec'] = asec
+
     # News Module #
     config['News Module']['news_ticker'] = 'Enabled'
-    config['News Module'][''] = ''
 
     # Reddit Module #
     config['Reddit Module']['Active'] = 'nil'

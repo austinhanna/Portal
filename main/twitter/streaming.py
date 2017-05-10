@@ -2,6 +2,7 @@
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
+import os
 import json
 import time
 import configparser
@@ -18,30 +19,3 @@ asecret = cfg.get('Auth', 'asec')
 
 #enabled = cfg.get('Twitter Module', 'Enabled')
 #if
-class listener(StreamListener):
-
-    def on_data(self, data):
-        all_data = json.loads(data)
-
-        tweet = all_data["text"].encode('UTF-8')
-
-        username = all_data["user"]["screen_name"].encode('UTF-8')
-
-        time.sleep(3)
-        print(username,tweet)
-        fo = open("tweet.txt","wb")
-        fo.write(username+tweet)
-        fo.close()
-
-        return True
-
-    def on_error(self, status):
-        print (status)
-
-auth = OAuthHandler(ckey, csecret)
-auth.set_access_token(atoken, asecret)
-
-cfg.read('config.ini')
-keyword = cfg.get('General','keyword')
-twitterStream = Stream(auth, listener())
-twitterStream.filter(track=[keyword])

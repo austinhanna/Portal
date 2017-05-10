@@ -12,12 +12,41 @@ from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from PyQt5 import QtCore
+# Tweepy Stuff #
+from tweepy import Stream
+from tweepy import OAuthHandler
+from tweepy.streaming import StreamListener
+# Reddit Stuff #
+
 
 ## Get if first boot ##
 cfg = configparser.ConfigParser()
 cfg.read('bin/config.ini')
 fboot = cfg.get('General', 'firstboot')
 #print(cfg.get('General', 'firstboot')) # Some debug cause this issue took me 10 minutes....
+
+# Twitter Auth Codes #
+cfg.read('bin/config.ini')
+ckey = cfg.get('Twitter Auth', 'ckey')
+csecret = cfg.get('Twitter Auth', 'csec')
+atoken = cfg.get('Twitter Auth', 'atok')
+asecret = cfg.get('Twitter Auth', 'asec')
+
+class listener(StreamListener):
+    def on_data(self, data):
+        all_data = json.loads(data)
+
+        tweet = all_data["text"].encode('UTF-8')
+        username = all_data["user"]["screen_name"].encode('UTF-8')
+        time.sleep(1)
+        print(username,tweet)
+        fo = open("bin/tweet.txt","wb")
+        fo.write(username+tweet)
+        fo.close()
+        return True
+
+    def on_error(self, status):
+        print (status)
 
 def startup():
     words = "Loading........"
@@ -34,7 +63,6 @@ def startup():
 
 def main():
     print("Main Launched")
-
     def parentmodule():
         app = QtWidgets.QApplication(sys.argv)
 
@@ -91,17 +119,22 @@ def main():
         def update_label():
             with open('bin/headlines.txt', 'r',encoding="utf-8") as headline_file:
                 reddit_content = headline_file.read()
-            with open('twitter/store/tweet.txt', 'r',encoding="utf8") as tweet_file:
+            with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             current_time = str(datetime.datetime.now().time())
             tweet.setText(tweet_content) # Split this! Add @ and says.
             headline.setText(reddit_content)
         timer = QtCore.QTimer()
         timer.timeout.connect(update_label)
-        timer.start(500)  # Check for new tweet/headline every second
+        timer.start(1000)  # Check for new tweet/headline every second
         sys.exit(app.exec_())
+        auth = OAuthHandler(ckey, csecret)
+        auth.set_access_token(atoken, asecret)
+        cfg.read('bin/config.ini')
+        keyword = cfg.get('Twitter Module','keyword')
+        twitterStream = Stream(auth, listener())
+        twitterStream.filter(track=[keyword])
     parentmodule()
-
 
 # Launch Control #
 if fboot == 'Enable':
