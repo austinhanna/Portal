@@ -88,9 +88,7 @@ def cunfig():
     # # # # # # # # # # # # # # # # #
 
     # General Settings #
-
-    config['General']['firstboot'] = 'Enable'
-
+    config['General']['firstboot'] = 'Disable'
     # Placement Settings #
 
     config['Placement']['top_left'] = 'nil'
@@ -138,4 +136,5 @@ def cunfig():
 
     with open('bin/config.ini', 'w') as configfile:
         config.write(configfile)
+
 cunfig()
