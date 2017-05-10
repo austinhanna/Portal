@@ -18,7 +18,7 @@ from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 # Reddit Stuff #
-
+import praw
 
 ## Get if first boot ##
 cfg = configparser.ConfigParser()
@@ -26,8 +26,10 @@ cfg.read('bin/config.ini')
 fboot = cfg.get('General', 'firstboot')
 #print(cfg.get('General', 'firstboot')) # Some debug cause this issue took me 10 minutes....
 
+# Reddit Settings #
+subreddit = cfg.get('Reddit Module', 'subreddit')
+
 # Twitter Auth Codes #
-cfg.read('bin/config.ini')
 ckey = cfg.get('Twitter Auth', 'ckey')
 csecret = cfg.get('Twitter Auth', 'csec')
 atoken = cfg.get('Twitter Auth', 'atok')
@@ -49,6 +51,15 @@ class listener(StreamListener):
     def on_error(self, status):
         print (status)
 
+def rheadline():
+    fo = open('bin/headlines.txt','wb')
+    reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
+                        client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
+    for submission in reddit.subreddit(subreddit).hot(limit=10):
+        print(submission.title.encode("utf-8")) # Find a way to remove the b'
+        fo.write(submission.title.encode("utf-8")+b'\n')
+    fo.close()
+
 def startup():
     words = "Loading........"
     for char in words:
@@ -62,6 +73,7 @@ def startup():
     main()
 
 def main():
+    rheadline()
     def parentmodule():
         app = QtWidgets.QApplication(sys.argv)
 
