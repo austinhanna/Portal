@@ -32,6 +32,7 @@ cfg = configparser.ConfigParser()
 cfg.read('bin/config.ini')
 
 # Reddit Settings #
+fboot = cfg.get('General','firstboot')
 subreddit = cfg.get('Reddit Module', 'subreddit')
 
 # Twitter Auth Codes #
