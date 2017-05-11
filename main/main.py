@@ -6,6 +6,7 @@ import os
 import configparser
 import random
 import requests
+
 # pyQt stuff #
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
@@ -22,14 +23,13 @@ from PyQt5.QtGui import QPixmap
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
+
 # Reddit Stuff #
 import praw
 
-## Get if first boot ##
+# Import CFG file
 cfg = configparser.ConfigParser()
 cfg.read('bin/config.ini')
-fboot = cfg.get('General', 'firstboot')
-#print(cfg.get('General', 'firstboot')) # Some debug cause this issue took me 10 minutes....
 
 # Reddit Settings #
 subreddit = cfg.get('Reddit Module', 'subreddit')
@@ -48,6 +48,7 @@ city = cfg.get('Weather Module', 'city_name')
 #unit = cfg.get('Weather Module', 'unit')
 wth_api = cfg.get('Weather Module', 'apikey')
 
+# Stream isn't workin' fella... find a way to put the class into the thingo below.
 class listener(StreamListener):
     def on_data(self, data):
         all_data = json.loads(data)
@@ -69,8 +70,8 @@ def rheadline():
     reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
                         client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
     for submission in reddit.subreddit(subreddit).hot(limit=10):
-        print(submission.title.encode("utf-8")) # Find a way to remove the b'
         fo.write(submission.title.encode("utf-8")+b'\n')
+    print("Done with Reddit!")
     fo.close()
 
 def startup():
@@ -80,12 +81,8 @@ def startup():
         sys.stdout.write(char)
         sys.stdout.flush()
     print()
-    print("Grabbing Reddit Data")
+    print("Grabbing Reddit Data...")
     rheadline()
-    #print("Grabbing Twitter Data")
-    #rheadline()
-    #print("Grabbing Weather Data")
-    #rheadline()
     dottt = "..........."
     for char in dottt:
         time.sleep(0.15)
@@ -116,7 +113,7 @@ def main():
         weather_desc = QtWidgets.QLabel(w)
 
         oImage = QImage("rsc/climacons/Cloud.png")
-        sImage = oImage.scaled(QSize(300,200))                   # resize Image to widgets size
+        sImage = oImage.scaled(QSize(300,200)) # resize Image to widgets size
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -184,11 +181,10 @@ def main():
         p.setColor(w.backgroundRole(), Qt.black) # Set window color
         w.setPalette(p) #
         w.show()
-        #os.system("cd Twitter")
-        #os.system("python streaming.py 1")
         w.showFullScreen() # Make window fullscreen
         headline.setText("Loading..")
 
+        # Weather Data #
         url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+wth_api
         data = requests.get(url)
         read = data.json()
@@ -197,45 +193,32 @@ def main():
         weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
+        # # # # # # # # #
 
-        """
-        def weather():
-            # add checks for weather Module
-            url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+wth_api
-            data = requests.get(url)
-            read = data.json()
-
-            weather_city.setText(read['name'])
-            weather_temp.setText(str(read['main']['temp']-273.15))
-            weather_humid.setText(read['main']['humidity'])
-            weather_desc.setText(read['weather'][0]['description'])
-        weath_timer = QtCore.QTimer()
-        weath_timer.timeout.connect(weather)
-        weath_timer.start(3600000) # 1 Hour
-        """
-
+        # Update Reddit and Twitter feeds #
         def update_label():
-            #with open('bin/headlines.txt', 'r',encoding="utf-8") as headline_file:
-
-                #reddit_content = headline_file.read()
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             current_time = str(datetime.datetime.now().time())
-            #tweet.setText(tweet_content) # Split this! Add @ and says.
+            tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText("/r/"+subreddit+": "+reddit_content)
-        timer = QtCore.QTimer()
-        timer.timeout.connect(update_label)
+
+        timer = QtCore.QTimer() # Make a timer
+        timer.timeout.connect(update_label) # Once time is up run the function
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
+
         sys.exit(app.exec_())
-        auth = OAuthHandler(ckey, csecret)
-        auth.set_access_token(atoken, asecret)
-        cfg.read('bin/config.ini')
-        keyword = cfg.get('Twitter Module','keyword')
-        twitterStream = Stream(auth, listener())
-        twitterStream.filter(track=[keyword])
-        print("Main Launched")
-    parentmodule()
+
+        auth = OAuthHandler(ckey, csecret) # Auth Twitter
+        auth.set_access_token(atoken, asecret) # Auth Twitter
+
+        keyword = cfg.get('Twitter Module','keyword') # Get keyword
+        twitterStream = Stream(auth, listener()) # Initiate Twitter Stream
+        twitterStream.filter(track=[keyword]) # Filter tweets
+
+        print("Main Launched") # Huston, we don't have a problem.
+    parentmodule() # Full speed ahead.
 
 # Launch Control #
 if fboot == 'Enable':
@@ -251,5 +234,5 @@ elif fboot == 'Disable':
 else:
     print("Corrupted!!!")
     time.sleep(1)
-    print("Something broke in the code. Try running the setup again.")
+    print("Something broke in the code. Try running the setup again.") # Don't be an idiot.
 # # # # # # # # # # #
