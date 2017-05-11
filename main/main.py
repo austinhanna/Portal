@@ -35,6 +35,9 @@ csecret = cfg.get('Twitter Auth', 'csec')
 atoken = cfg.get('Twitter Auth', 'atok')
 asecret = cfg.get('Twitter Auth', 'asec')
 
+# User Data #
+u_name = cfg.get('User Data', 'name')
+
 class listener(StreamListener):
     def on_data(self, data):
         all_data = json.loads(data)
@@ -61,19 +64,30 @@ def rheadline():
     fo.close()
 
 def startup():
-    words = "Loading........"
+    words = "Loading Settings"
     for char in words:
-        time.sleep(0.3)
+        time.sleep(0.15)
+        sys.stdout.write(char)
+        sys.stdout.flush()
+    print()
+    print("Grabbing Reddit Data")
+    rheadline()
+    #print("Grabbing Twitter Data")
+    #rheadline()
+    #print("Grabbing Weather Data")
+    #rheadline()
+    dottt = "..........."
+    for char in dottt:
+        time.sleep(0.15)
         sys.stdout.write(char)
         sys.stdout.flush()
     print("Done!")
     print()
-    time.sleep(.6)
-    print("Launching")
+    print("Launching into GUI...")
+    time.sleep(1)
     main()
 
 def main():
-    rheadline()
     def parentmodule():
         app = QtWidgets.QApplication(sys.argv)
 
@@ -110,11 +124,11 @@ def main():
         la1.move(10,10)
         la2.move(10,100)
         tweet.move(860,1000)
-        headline.move(10,1000)
+        headline.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(0,0,1920,500)
-        la1.setText("Hello")
-        la2.setText("there.")
+        headline.setGeometry(100,815,1920,500)
+        la1.setText("Welcome,")
+        la2.setText(u_name)
         w.setWindowTitle("Main") # Set window title text
 
         # Color #
@@ -134,7 +148,7 @@ def main():
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             current_time = str(datetime.datetime.now().time())
-            tweet.setText(tweet_content) # Split this! Add @ and says.
+            #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText(reddit_content)
         timer = QtCore.QTimer()

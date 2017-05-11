@@ -62,6 +62,13 @@ def configurator():
             print("")
             print("Thanks!")
             time.sleep(1)
+        else:
+            ckey = 'nil'
+            csec = 'nil'
+            atok = 'nil'
+            asec = 'nil'
+            keyword = 'nil'
+
         print()
         news_en = input('Would you like to enable the News module?(True/False) ')
         print()
@@ -75,7 +82,6 @@ def configurator():
         print()
         print("DONE!")
         print()
-        print('Configurator done.')
 
         ### Send 'em back! ###
         return time_en
