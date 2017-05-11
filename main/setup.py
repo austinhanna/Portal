@@ -10,7 +10,6 @@ def configurator():
         global time_en
         global weath_en
         global twit_en
-        global news_en
         global reddit_en
         global subreddit
         global u_name
@@ -19,6 +18,9 @@ def configurator():
         global atok
         global asec
         global keyword
+        global city
+        global owm_api_key
+        global unit
 
         ### Begin Info ###
         print('Running Configurator...')
@@ -50,6 +52,12 @@ def configurator():
         time_en = input('Would you like to enable the Time module?(True/False) ')
         print()
         weath_en = input('Would you like to enable the Weather module?(True/False) ')
+        if weath_en == 'True':
+            print("")
+            city = input('For which City/Town do you want to see weather from? ')
+            unit = input('Celsius or Fareinheit? (C/F) ')
+            owm_api_key = input('OWM API Key? ')
+
         print()
         twit_en = input('Would you like to enable the Twitter module?(True/False) ')
         if twit_en == 'True':
@@ -70,8 +78,6 @@ def configurator():
             keyword = 'nil'
 
         print()
-        news_en = input('Would you like to enable the News module?(True/False) ')
-        print()
         reddit_en = input('Would you like to enable the Reddit module?(True/False) ')
         if reddit_en == 'True':
             print("Write subreddit as is do not write /r/.")
@@ -87,7 +93,6 @@ def configurator():
         return time_en
         return weath_en
         return twit_en
-        return news_en
         return reddit_en
         return u_name
         return subreddit
@@ -96,6 +101,9 @@ def configurator():
         return atok
         return asec
         return keyword
+        return city
+        return owm_api_key
+        return unit
 configurator()
 
 def cunfig():
@@ -109,7 +117,6 @@ def cunfig():
     config['Weather Module'] = {}
     config['Twitter Module'] = {}
     config['Twitter Auth'] = {}
-    config['News Module'] = {}
     config['Reddit Module'] = {}
 
     # # # # # # # # # # # # # # # # #
@@ -130,7 +137,6 @@ def cunfig():
     config['Modules']['time'] = time_en
     config['Modules']['weather'] = weath_en
     config['Modules']['twitter_feed'] = twit_en
-    config['Modules']['news_ticker'] = news_en
     config['Modules']['reddit'] = reddit_en
 
     # Time Module #
@@ -139,8 +145,10 @@ def cunfig():
 
     # Weather Module #
     config['Weather Module']['local_weather'] = 'Enabled'
-    config['Weather Module']['country_name'] = 'nil'
-    config['Weather Module']['city_name'] = 'nil'
+    config['Weather Module']['city_name'] = city
+    config['Weather Module']['units'] = unit
+    config['Weather Module']['apikey'] = '40460bd21017b5384bdfcbf78da21cc8'
+
 
     # Twitter Module #
     config['Twitter Module']['twitter_live_feed'] = 'Enabled'
@@ -155,9 +163,6 @@ def cunfig():
     config['Twitter Auth']['csec'] = csec
     config['Twitter Auth']['atok'] = atok
     config['Twitter Auth']['asec'] = asec
-
-    # News Module #
-    config['News Module']['news_ticker'] = 'Enabled'
 
     # Reddit Module #
     config['Reddit Module']['Active'] = 'nil'

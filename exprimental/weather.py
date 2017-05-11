@@ -1,10 +1,9 @@
-import forecastio
-api_key = "359bff8fcf2d1cb89382a17e32b79906"
-lat = 51.5033640
-lng = -0.1276250
-forecast = forecastio.load_forecast(api_key, lat, lng)
-byHour = forecast.hourly()
-print (byHour.summary)
-print (byHour.icon)
-for hourlyData in byHour.data:
-    print(hourlyData.temperature)
+import requests
+city = input("Which City do you want to pull weather from? ")
+url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=40460bd21017b5384bdfcbf78da21cc8"
+data = requests.get(url)
+read = data.json()
+print("City Name: "+read['name'])
+print("Temperature: "+str(read['main']['temp']-273.15))
+print("Humidity: ")
+print("Description: ")

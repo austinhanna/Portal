@@ -5,6 +5,7 @@ import datetime
 import os
 import configparser
 import random
+import requests
 # pyQt stuff #
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
@@ -13,6 +14,10 @@ from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
 from PyQt5 import QtCore
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import QImage, QPalette, QBrush
+from PyQt5.QtGui import QPixmap
+
 # Tweepy Stuff #
 from tweepy import Stream
 from tweepy import OAuthHandler
@@ -37,6 +42,11 @@ asecret = cfg.get('Twitter Auth', 'asec')
 
 # User Data #
 u_name = cfg.get('User Data', 'name')
+
+# Weather Settings #
+city = cfg.get('Weather Module', 'city_name')
+#unit = cfg.get('Weather Module', 'unit')
+wth_api = cfg.get('Weather Module', 'apikey')
 
 class listener(StreamListener):
     def on_data(self, data):
@@ -100,11 +110,24 @@ def main():
         la2 = QtWidgets.QLabel(w) # Label "Reddit"
         time_la = QtWidgets.QLabel(w) # Label "Time"
 
+        weather_city = QtWidgets.QLabel(w)
+        weather_temp = QtWidgets.QLabel(w)
+        weather_humid = QtWidgets.QLabel(w)
+        weather_desc = QtWidgets.QLabel(w)
+
+        oImage = QImage("rsc/climacons/Cloud.png")
+        sImage = oImage.scaled(QSize(300,200))                   # resize Image to widgets size
+
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
         font.setFamily("Tahoma") # Set Font
-        font.setPointSize(32)
+        font.setPointSize(30)
         font.setBold(False) # Bold?
+
+        font2 = QtGui.QFont() # Make font element
+        font2.setFamily("Tahoma") # Set Font
+        font2.setPointSize(24)
+        font2.setBold(False) # Bold?
 
         lt_font = QtGui.QFont() # Make font element
         lt_font.setFamily("Tahoma") # Set Font
@@ -112,26 +135,39 @@ def main():
         lt_font.setBold(False) # Bold?
 
         la1.setFont(font)
-        la2.setFont(font)
+        la2.setFont(font2)
         tweet.setFont(lt_font)
         headline.setFont(lt_font)
         time_la.setFont(lt_font)
+        weather_city.setFont(lt_font)
+        weather_temp.setFont(lt_font)
+        weather_humid.setFont(lt_font)
+        weather_desc.setFont(lt_font)
 
         fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white) # Label Color
         la1.setPalette(fontp) # Set label to palette
         la2.setPalette(fontp) # Set label to palette
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
-        time_la.setPalette(fontp) # Set label to palette
+        time_la.setPalette(fontp)
+
+        weather_city.setPalette(fontp)
+        weather_temp.setPalette(fontp)
+        weather_humid.setPalette(fontp)
+        weather_desc.setPalette(fontp)
 
         la1.move(10,10)
         la2.move(10,100)
-        time_la.move(1000,50)
         tweet.move(860,1000)
-        headline.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(10,815,1920,500)
-        time_la.setGeometry(500,0,1920,500)
+        headline.setGeometry(10,800,1920,500)
+        time_la.setGeometry(700,0,1920,100)
+
+        weather_city.setGeometry(1400,5,1920,100)
+        weather_temp.setGeometry(1400,45,1920,100)
+        weather_humid.setGeometry(1600,5,1920,100)
+        weather_desc.setGeometry(1600,45,1920,100)
+
         la1.setText("Welcome,")
         la2.setText(u_name)
         w.setWindowTitle("Main") # Set window title text
@@ -142,7 +178,6 @@ def main():
         time_timer.timeout.connect(time)
         time_timer.start(500)  # Check for new tweet/headline every second
 
-
         # Color #
         w.setAutoFillBackground(True) # Fill
         p = w.palette() # Make P palette for window and color options
@@ -152,6 +187,32 @@ def main():
         #os.system("cd Twitter")
         #os.system("python streaming.py 1")
         w.showFullScreen() # Make window fullscreen
+        headline.setText("Loading..")
+
+        url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+wth_api
+        data = requests.get(url)
+        read = data.json()
+
+        weather_city.setText(read['name'])
+        weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+        weather_humid.setText(str(read['main']['humidity'])+'%')
+        weather_desc.setText(read['weather'][0]['description'])
+
+        """
+        def weather():
+            # add checks for weather Module
+            url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+wth_api
+            data = requests.get(url)
+            read = data.json()
+
+            weather_city.setText(read['name'])
+            weather_temp.setText(str(read['main']['temp']-273.15))
+            weather_humid.setText(read['main']['humidity'])
+            weather_desc.setText(read['weather'][0]['description'])
+        weath_timer = QtCore.QTimer()
+        weath_timer.timeout.connect(weather)
+        weath_timer.start(3600000) # 1 Hour
+        """
 
         def update_label():
             #with open('bin/headlines.txt', 'r',encoding="utf-8") as headline_file:
