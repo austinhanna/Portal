@@ -98,6 +98,7 @@ def main():
         tweet = QtWidgets.QLabel(w) # Label "Tweet"
         headline = QtWidgets.QLabel(w) # Label "Reddit"
         la2 = QtWidgets.QLabel(w) # Label "Reddit"
+        time_la = QtWidgets.QLabel(w) # Label "Time"
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -114,22 +115,33 @@ def main():
         la2.setFont(font)
         tweet.setFont(lt_font)
         headline.setFont(lt_font)
+        time_la.setFont(lt_font)
 
         fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white) # Label Color
         la1.setPalette(fontp) # Set label to palette
         la2.setPalette(fontp) # Set label to palette
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
+        time_la.setPalette(fontp) # Set label to palette
 
         la1.move(10,10)
         la2.move(10,100)
+        time_la.move(1000,50)
         tweet.move(860,1000)
         headline.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(100,815,1920,500)
+        headline.setGeometry(10,815,1920,500)
+        time_la.setGeometry(500,0,1920,500)
         la1.setText("Welcome,")
         la2.setText(u_name)
         w.setWindowTitle("Main") # Set window title text
+
+        def time():
+            time_la.setText(QtCore.QDateTime.currentDateTime().toString())
+        time_timer = QtCore.QTimer()
+        time_timer.timeout.connect(time)
+        time_timer.start(500)  # Check for new tweet/headline every second
+
 
         # Color #
         w.setAutoFillBackground(True) # Fill
@@ -150,10 +162,10 @@ def main():
             current_time = str(datetime.datetime.now().time())
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
-            headline.setText(reddit_content)
+            headline.setText("/r/"+subreddit+": "+reddit_content)
         timer = QtCore.QTimer()
         timer.timeout.connect(update_label)
-        timer.start(10000)  # Check for new tweet/headline every second
+        timer.start(5000)  # Check for new tweet/headline every 5 seconds
         sys.exit(app.exec_())
         auth = OAuthHandler(ckey, csecret)
         auth.set_access_token(atoken, asecret)
