@@ -107,16 +107,14 @@ def main():
         la2 = QtWidgets.QLabel(w) # Label "Reddit"
         time_la = QtWidgets.QLabel(w) # Label "Time"
 
-        wth_img = QtWidgets.QLabel(w)
-        wth_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloudw.svg'))
-        wth_img.setGeometry(1200,100,1920,100)
-
+        wth_dsc_img = QtWidgets.QLabel(w)
+        wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloudw.svg'))
+        wth_dsc_img.setGeometry(1200,100,1920,100)
 
         weather_city = QtWidgets.QLabel(w)
         weather_temp = QtWidgets.QLabel(w)
         weather_humid = QtWidgets.QLabel(w)
         weather_desc = QtWidgets.QLabel(w)
-
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -196,6 +194,19 @@ def main():
         weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
+
+        wth_tmp_img = QtWidgets.QLabel(w)
+        if read['main']['temp']-273.15 < 5:
+            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
+        elif read['main']['temp']-273.15 < 10:
+            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
+        elif read['main']['temp']-273.15 > 10:
+            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
+        elif read['main']['temp']-273.15 > 30:
+            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
+        elif read['main']['temp']-273.15 > 35:
+            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+        wth_tmp_img.setGeometry(1200,45,1920,100)
         # # # # # # # # #
 
         # Update Reddit and Twitter feeds #
