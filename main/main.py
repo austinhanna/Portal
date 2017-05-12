@@ -115,6 +115,7 @@ def main():
         weather_temp = QtWidgets.QLabel(w)
         weather_humid = QtWidgets.QLabel(w)
         weather_desc = QtWidgets.QLabel(w)
+        wth_tmp_img = QtWidgets.QLabel(w)
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -195,7 +196,6 @@ def main():
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
 
-        wth_tmp_img = QtWidgets.QLabel(w)
         if read['main']['temp']-273.15 < 5:
             wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
         elif read['main']['temp']-273.15 < 10:
@@ -206,7 +206,7 @@ def main():
             wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
         elif read['main']['temp']-273.15 > 35:
             wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
-        wth_tmp_img.setGeometry(1200,45,1920,100)
+        wth_tmp_img.setGeometry(1130,45,1920,100)
         # # # # # # # # #
 
         # Update Reddit and Twitter feeds #
@@ -214,7 +214,7 @@ def main():
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             current_time = str(datetime.datetime.now().time())
-            tweet.setText(tweet_content) # Split this! Add @ and says.
+            #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText("/r/"+subreddit+": "+reddit_content)
 
