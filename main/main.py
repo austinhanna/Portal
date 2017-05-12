@@ -8,8 +8,7 @@ import random
 import requests
 
 # pyQt stuff #
-from PyQt5 import QtWidgets
-from PyQt5 import QtGui
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QLabel
 from PyQt5.QtGui import QPainter, QColor, QPen
 from PyQt5.QtGui import QIcon
@@ -108,13 +107,16 @@ def main():
         la2 = QtWidgets.QLabel(w) # Label "Reddit"
         time_la = QtWidgets.QLabel(w) # Label "Time"
 
+        wth_img = QtWidgets.QLabel(w)
+        wth_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloudw.svg'))
+        wth_img.setGeometry(1200,100,1920,100)
+
+
         weather_city = QtWidgets.QLabel(w)
         weather_temp = QtWidgets.QLabel(w)
         weather_humid = QtWidgets.QLabel(w)
         weather_desc = QtWidgets.QLabel(w)
 
-        oImage = QImage("rsc/climacons/Cloud.png")
-        sImage = oImage.scaled(QSize(300,200)) # resize Image to widgets size
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -161,10 +163,10 @@ def main():
         headline.setGeometry(10,800,1920,500)
         time_la.setGeometry(700,0,1920,100)
 
-        weather_city.setGeometry(1400,5,1920,100)
-        weather_temp.setGeometry(1400,45,1920,100)
-        weather_humid.setGeometry(1600,5,1920,100)
-        weather_desc.setGeometry(1600,45,1920,100)
+        weather_city.setGeometry(1200,5,1920,100)
+        weather_temp.setGeometry(1200,45,1920,100)
+        weather_humid.setGeometry(1400,5,1920,100)
+        weather_desc.setGeometry(1400,45,1920,100)
 
         la1.setText("Welcome,")
         la2.setText(u_name)

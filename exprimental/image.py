@@ -1,37 +1,19 @@
-import os
 import sys
-from PyQt5.QtWidgets import (QWidget, QHBoxLayout,
-    QLabel, QApplication)
-from PyQt5.QtGui import QPixmap
+from PyQt5 import QtWidgets, QtGui
 
-
-class Example(QWidget):
-
-    def __init__(self):
-        super().__init__()
-
-        self.initUI()
-
-
-    def initUI(self):
-
-        hbox = QHBoxLayout(self)
-        os.chdir("..")
-        pixmap = QPixmap("main/rsc/climacons/Cloud.png")
-
-        lbl = QLabel(self)
-        lbl.setPixmap(pixmap)
-
-        hbox.addWidget(lbl)
-        self.setLayout(hbox)
-
-        self.move(300, 200)
-        self.setWindowTitle('Red Rock')
-        self.show()
-
-
-if __name__ == '__main__':
-
-    app = QApplication(sys.argv)
-    ex = Example()
+def window():
+    app = QtWidgets.QApplication(sys.argv)
+    w = QtWidgets.QWidget()
+    l1 = QtWidgets.QLabel(w)
+    l2 = QtWidgets.QLabel(w)
+    l1.setText('ya')
+    l2.setPixmap(QtGui.QPixmap('Cloud.png'))
+    w.setWindowTitle('Cloud')
+    w.setGeometry(800, 400, 720, 600)
+    l1.move(360, 5)
+    l2.move(100, 20)
+    w.show()
     sys.exit(app.exec_())
+
+
+window()
