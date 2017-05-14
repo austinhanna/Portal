@@ -160,7 +160,7 @@ def main():
         headline.setGeometry(10,800,1920,500)
         time_la.setGeometry(700,0,1920,100)
 
-        weather_city.setGeometry(1400,5,1920,100)
+        weather_city.setGeometry(1380,5,1920,100)
         weather_temp.setGeometry(1400,45,1920,100)
         weather_humid.setGeometry(1700,5,1920,100)
         weather_desc.setGeometry(1700,45,1920,100)

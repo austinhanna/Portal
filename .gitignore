@@ -137,3 +137,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+main/bin/config.ini
+main/bin/headlines.txt
+main/bin/tweet.txt
