@@ -26,12 +26,13 @@ from tweepy.streaming import StreamListener
 # Reddit Stuff #
 import praw
 
-# Import CFG file
+# Import CFG file #
 cfg = configparser.ConfigParser()
 cfg.read('bin/config.ini')
 
-# Reddit Settings #
 fboot = cfg.get('General','firstboot')
+
+# Reddit Settings #
 subreddit = cfg.get('Reddit Module', 'subreddit')
 
 # Twitter Auth Codes #
@@ -107,7 +108,6 @@ def main():
         la2 = QtWidgets.QLabel(w) # Label "Reddit"
         time_la = QtWidgets.QLabel(w) # Label "Time"
         wth_dsc_img = QtWidgets.QLabel(w)
-
 
         weather_city = QtWidgets.QLabel(w)
         weather_temp = QtWidgets.QLabel(w)
@@ -215,7 +215,6 @@ def main():
         def update_label():
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
-            current_time = str(datetime.datetime.now().time())
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText("/r/"+subreddit+": "+reddit_content)
