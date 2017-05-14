@@ -30,6 +30,7 @@ import praw
 cfg = configparser.ConfigParser()
 cfg.read('bin/config.ini')
 
+# General Data #
 fboot = cfg.get('General','firstboot')
 
 # Reddit Settings #
@@ -46,7 +47,7 @@ u_name = cfg.get('User Data', 'name')
 
 # Weather Settings #
 city = cfg.get('Weather Module', 'city_name')
-#unit = cfg.get('Weather Module', 'unit')
+unit = cfg.get('Weather Module', 'units')
 wth_api = cfg.get('Weather Module', 'apikey')
 
 # Stream isn't workin' fella... find a way to put the class into the thingo below.
@@ -190,7 +191,11 @@ def main():
         read = data.json()
 
         weather_city.setText(read['name'])
-        weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+
+        if unit == 'C' or unit == 'Celsius':
+            weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+        elif unit == 'F' or unit == 'Fareinheit':
+            weather_temp.setText(str(read['main']['temp']*9/5-459.67)+'°F')
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
 
