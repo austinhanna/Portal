@@ -29,3 +29,9 @@ Visit their [Github Page here](https://github.com/tweepy/tweepy) or install thro
 pip3 install tweepy
 ```
 
+
+## PRAW
+Reddit Module, Visit their [Homepage Here](https://praw.readthedocs.io/en/latest/index.html) and install via PIP
+```python
+pip3 install praw
+```
