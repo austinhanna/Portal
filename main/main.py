@@ -213,9 +213,14 @@ def main():
             wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
         wth_tmp_img.setGeometry(1340,75,100,40)
 
-        #if read['weather']['description']
-        wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
-        wth_dsc_img.setGeometry(1500,50,1920,100)
+        wth_desc = read['weather'][0]['description']
+
+        if 'cloud' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
+        else:
+            print('No clouds :()')
+
         # # # # # # # # #
 
         # Update Reddit and Twitter feeds #
