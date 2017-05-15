@@ -201,25 +201,55 @@ def main():
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
 
-        if read['main']['temp']-273.15 < 5:
-            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
-        elif read['main']['temp']-273.15 < 10:
-            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
-        elif read['main']['temp']-273.15 > 10:
-            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
-        elif read['main']['temp']-273.15 > 30:
-            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
-        elif read['main']['temp']-273.15 > 35:
-            wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+        # Set thermometer icon to corresponding temperature
+        """
+        if unit == 'C' or 'Celsius':
+            if read['main']['temp']-273.15 < 5:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
+            elif read['main']['temp']-273.15 < 10:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
+            elif read['main']['temp']-273.15 > 10:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
+            elif read['main']['temp']-273.15 > 30:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
+            elif read['main']['temp']-273.15 > 35:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+        elif unit == 'F' or 'Fareinheit': #
+            if read['main']['temp']*9/5-459.67 < 10:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
+            elif read['main']['temp']*9/5-459.67 = 25:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
+            elif read['main']['temp']*9/5-459.67 =! 50:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
+            elif read['main']['temp']-273.15 > 30:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
+            elif read['main']['temp']-273.15 > 35:
+                wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+        """
+
         wth_tmp_img.setGeometry(1340,75,100,40)
 
-        wth_desc = read['weather'][0]['description']
 
+        # Set icon to corresponding weather #
+        wth_desc = read['weather'][0]['description']
         if 'cloud' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
             wth_dsc_img.setGeometry(1500,50,1920,100)
-        else:
-            print('No clouds :()')
+        elif 'clear sky' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
+        elif 'rain' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
+        elif 'thunder' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
+        elif 'snow' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
+        elif 'mist' in wth_desc:
+            wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
+            wth_dsc_img.setGeometry(1500,50,1920,100)
 
         # # # # # # # # #
 
