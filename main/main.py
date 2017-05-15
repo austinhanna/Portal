@@ -193,9 +193,11 @@ def main():
         weather_city.setText(read['name'])
 
         if unit == 'C' or unit == 'Celsius':
-            weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+            temp = str(read['main']['temp']-273.15)+'°C'
+            weather_temp.setText(temp)
         elif unit == 'F' or unit == 'Fareinheit':
-            weather_temp.setText(str(read['main']['temp']*9/5-459.67)+'°F')
+            temp = str(read['main']['temp']*9/5-459.67)+'°F'
+            weather_temp.setText(temp[:4])
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
 
