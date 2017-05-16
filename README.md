@@ -35,3 +35,9 @@ Reddit Module, Visit their [Homepage Here](https://praw.readthedocs.io/en/latest
 ```python
 pip3 install praw
 ```
+
+## OpenCV
+Used for Camera integration which allows face recognition
+```python
+pip3 intall opencv-python
+```
