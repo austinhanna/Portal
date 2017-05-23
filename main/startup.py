@@ -29,7 +29,7 @@ def startup():
     font = QtGui.QFont() # Make font element
     fontp = QtGui.QPalette()
 
-    font.setFamily("Tahoma") # Set Font
+    font.setFamily("Helvetica") # Set Font
     font.setPointSize(12)
     font.setBold(False) # Bold?
     ip.setFont(font)
@@ -38,7 +38,7 @@ def startup():
 
     ip.setPalette(fontp) # Set label to palette
     ip.setGeometry(0,0,2500,500) # Label size and positioning
-    ip.setText(socket.gethostbyname(socket.gethostname()))
+    ip.setText("Setup your mirror @ "+socket.gethostbyname(socket.gethostname()))
 
      # Set label text
     w.setWindowTitle("Boot") # Set window title text

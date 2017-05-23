@@ -21,6 +21,8 @@ def configurator():
         global city
         global owm_api_key
         global unit
+        global ssh_user
+        global ssh_pass
 
         ### Begin Info ###
         print('Running Configurator...')
@@ -89,6 +91,20 @@ def configurator():
         print("DONE!")
         print()
 
+        ssh_en = input('Would you like to enable SSH? (True/False) ')
+        if ssh_en == 'True' or ssh_en == 'T' or ssh_en == 'Y':
+            print()
+            ssh_user = input("Write your *NEW* username. (Note: Default is magic) ")
+            ssh_pass = input("Write your *NEW* password. (Note: Default is mirror) ")
+        print()
+        print('Writing to file...')
+        time.sleep(1)
+        print()
+        print("DONE!")
+        print()
+
+
+
         ### Send 'em back! ###
         return time_en
         return weath_en
@@ -104,6 +120,8 @@ def configurator():
         return city
         return owm_api_key
         return unit
+        return ssh_user
+        return ssh_pass
 configurator()
 
 def cunfig():
