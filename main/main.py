@@ -116,6 +116,12 @@ def main():
         weather_desc = QtWidgets.QLabel(w)
         wth_tmp_img = QtWidgets.QLabel(w)
 
+        qp = QPainter()
+        qp.begin(w)
+        qp.setBrush(QColor(50, 50, 50))
+        qp.drawRect(50, 50, 50, 50)
+        qp.end()
+
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
         font.setFamily("Tahoma") # Set Font
@@ -200,33 +206,30 @@ def main():
         weather_desc.setText(read['weather'][0]['description'])
 
         # Set thermometer icon to corresponding temperature
-        """
         if unit == 'C' or 'Celsius':
             if read['main']['temp']-273.15 < 5:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
-            elif read['main']['temp']-273.15 < 10:
+            elif read['main']['temp']-273.15 <= 10:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
-            elif read['main']['temp']-273.15 > 10:
+            elif read['main']['temp']-273.15 >= 10:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
-            elif read['main']['temp']-273.15 > 30:
+            elif read['main']['temp']-273.15 >= 20:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
-            elif read['main']['temp']-273.15 > 35:
+            elif read['main']['temp']-273.15 >= 35:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
         elif unit == 'F' or 'Fareinheit': #
             if read['main']['temp']*9/5-459.67 < 10:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
-            elif read['main']['temp']*9/5-459.67 = 25:
+            elif read['main']['temp']*9/5-459.67 >= 32:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
-            elif read['main']['temp']*9/5-459.67 =! 50:
+            elif read['main']['temp']*9/5-459.67 != 50:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
-            elif read['main']['temp']-273.15 > 30:
+            elif read['main']['temp']-273.15 >= 75:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
-            elif read['main']['temp']-273.15 > 35:
+            elif read['main']['temp']-273.15 >= 100:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
-        """
 
         wth_tmp_img.setGeometry(1340,75,100,40)
-
 
         # Set icon to corresponding weather #
         wth_desc = read['weather'][0]['description']
@@ -235,7 +238,7 @@ def main():
             wth_dsc_img.setGeometry(1500,50,1920,100)
         elif 'clear sky' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1500,50,1920,50)
         elif 'rain' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
             wth_dsc_img.setGeometry(1500,50,1920,100)

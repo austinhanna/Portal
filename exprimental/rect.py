@@ -7,6 +7,11 @@ from PyQt5.QtCore import *
 
 class MyWindow(QMainWindow):
     def paintEvent(self, event):
+        qp = QPainter()
+        qp.begin(self)
+        qp.setBrush(QColor(200, 0, 0))
+        qp.drawRect(a, b, x, y)
+        qp.end()
 
 
 def updateValues():
