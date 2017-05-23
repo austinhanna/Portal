@@ -235,22 +235,22 @@ def main():
         wth_desc = read['weather'][0]['description']
         if 'cloud' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
         elif 'clear sky' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,50)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
         elif 'rain' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
         elif 'thunder' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
         elif 'snow' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-            wth_dsc_img.setGeometry(1500,50,1920,100)
+            wth_dsc_img.setGeometry(1550,50,1920,75)
 
         # # # # # # # # #
 
