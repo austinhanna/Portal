@@ -1,4 +1,4 @@
-# System Stuff
+# System Stuff #
 import sys
 import time
 import datetime
@@ -60,7 +60,7 @@ class listener(StreamListener):
         time.sleep(1)
         print(username,tweet)
         fo = open("bin/tweet.txt","wb")
-        fo.write(username+tweet)
+        fo.write('@'+username+tweet)
         fo.close()
         return True
 
@@ -115,12 +115,6 @@ def main():
         weather_humid = QtWidgets.QLabel(w)
         weather_desc = QtWidgets.QLabel(w)
         wth_tmp_img = QtWidgets.QLabel(w)
-
-        qp = QPainter()
-        qp.begin(w)
-        qp.setBrush(QColor(50, 50, 50))
-        qp.drawRect(50, 50, 50, 50)
-        qp.end()
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette()
@@ -235,22 +229,22 @@ def main():
         wth_desc = read['weather'][0]['description']
         if 'cloud' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
         elif 'clear sky' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
         elif 'rain' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
         elif 'thunder' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
         elif 'snow' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,75)
+            wth_dsc_img.setGeometry(1550,50,1920,70)
 
         # # # # # # # # #
 

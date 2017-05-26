@@ -92,9 +92,9 @@ def gotojail():
 
 fboot = config.get('General','firstboot')
 
-if fboot == 'Enabled':
+if fboot == 'Enable':
     startup()
-elif fboot == 'Disabled':
+elif fboot == 'Disable':
     print("FIRSTBOOT DETECTED. LAUNCHING INTO MAIN.")
     gotojail() # And don't collect $200
 else:
