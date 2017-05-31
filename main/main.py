@@ -104,7 +104,6 @@ def main():
         w = QtWidgets.QWidget() # The window
 
         # Labels hold text and can also show us images. How cool!
-        la1 = QtWidgets.QLabel(w) # Label - "Welcome"
         tweet = QtWidgets.QLabel(w) # Label - "Tweet"
         headline = QtWidgets.QLabel(w) # Label - "Reddit"
         la2 = QtWidgets.QLabel(w) # Label - "Reddit"
@@ -120,7 +119,7 @@ def main():
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette() # Make new pallete for the first font
         font.setFamily("Tahoma") # Set Font
-        font.setPointSize(30) # Set font size
+        font.setPointSize(26) # Set font size
         font.setBold(False) # Bold? No way Jose
 
         font2 = QtGui.QFont() # Make font element
@@ -134,8 +133,8 @@ def main():
         lt_font.setBold(False) # Nah.
 
         # Set labels to fonts.
-        la1.setFont(font)
-        la2.setFont(font2)
+        la1 = QtWidgets.QLabel(w) # Label - "Welcome"
+        la2.setFont(font)
         tweet.setFont(lt_font)
         headline.setFont(lt_font)
         time_la.setFont(lt_font)
@@ -146,7 +145,6 @@ def main():
 
         # Set labels to pallete's
         fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white) # Label Color
-        la1.setPalette(fontp) # Set label to palette
         la2.setPalette(fontp) # Set label to palette
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
@@ -157,8 +155,7 @@ def main():
         weather_desc.setPalette(fontp)
 
         # Geometry!
-        la1.move(10,10)
-        la2.move(10,100)
+        la2.setGeometry(10,0,1920,150)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(10,800,1920,500)
@@ -169,8 +166,21 @@ def main():
         weather_desc.setGeometry(1700,45,1920,100)
 
         # Begin setting labels
-        la1.setText("Welcome,")
-        la2.setText(u_name)
+        def goodmorning():
+            currentTime = datetime.datetime.now()
+            if currentTime.hour < 12:
+                la1.setText("Good Morning,")
+            elif 12 <= currentTime.hour < 18:
+                la1.setText("Good Afternoon,")
+            else:
+                la1.setText("Good Evening,")
+        la1.setFont(font)
+        la1.setPalette(fontp) # Set label to palette
+        la1.setGeometry(10,0,1920,50)
+        la2.setText(u_name+'!')
+        timer_timer = QtCore.QTimer()
+        timer_timer.timeout.connect(goodmorning)
+        timer_timer.start(500)  # Check for new tweet/headline every second
 
         # Set the title of the window.
         w.setWindowTitle("Main") # Set window title text
