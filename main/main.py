@@ -174,13 +174,14 @@ def main():
                 la1.setText("Good Afternoon,")
             else:
                 la1.setText("Good Evening,")
+
         la1.setFont(font)
         la1.setPalette(fontp) # Set label to palette
         la1.setGeometry(10,0,1920,50)
-        la2.setText(u_name+'!')
+        la2.setText(u_name)
         timer_timer = QtCore.QTimer()
         timer_timer.timeout.connect(goodmorning)
-        timer_timer.start(500)  # Check for new tweet/headline every second
+        timer_timer.start(500) # Check for new tweet/headline every second
 
         # Set the title of the window.
         w.setWindowTitle("Main") # Set window title text
@@ -206,7 +207,6 @@ def main():
         read = data.json()
 
         weather_city.setText(read['name'])
-
         if unit == 'C' or unit == 'Celsius':
             weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
         elif unit == 'F' or unit == 'Fareinheit':
@@ -261,16 +261,84 @@ def main():
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
             wth_dsc_img.setGeometry(1550,50,1920,70)
 
+        def wthtime():
+            weather_city.setText(read['name'])
+            if unit == 'C' or unit == 'Celsius':
+                weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+            elif unit == 'F' or unit == 'Fareinheit':
+                weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
+            weather_humid.setText(str(read['main']['humidity'])+'%')
+            weather_desc.setText(read['weather'][0]['description'])
+            # Set thermometer icon to corresponding temperature
+            if unit == 'C' or 'Celsius':
+                if read['main']['temp']-273.15 < 5:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
+                elif read['main']['temp']-273.15 <= 10:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
+                elif read['main']['temp']-273.15 >= 10:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
+                elif read['main']['temp']-273.15 >= 20:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
+                elif read['main']['temp']-273.15 >= 35:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+            elif unit == 'F' or 'Fareinheit': #
+                if read['main']['temp']*9/5-459.67 < 10:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-Zero.svg'))
+                elif read['main']['temp']*9/5-459.67 >= 32:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-25.svg'))
+                elif read['main']['temp']*9/5-459.67 != 50:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-50.svg'))
+                elif read['main']['temp']-273.15 >= 75:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-75.svg'))
+                elif read['main']['temp']-273.15 >= 100:
+                    wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
+
+            wth_tmp_img.setGeometry(1340,75,100,40)
+
+            # Set icon to corresponding weather #
+            wth_desc = read['weather'][0]['description']
+            if 'cloud' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+            elif 'clear sky' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+            elif 'rain' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+            elif 'thunder' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+            elif 'snow' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+            elif 'mist' in wth_desc:
+                wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
+                wth_dsc_img.setGeometry(1550,50,1920,70)
+        wth_timer = QtCore.QTimer()
+        wth_timer.timeout.connect(wthtime)
+        wth_timer.start(1800*1000)  # Time in seconds * 1000 for milliseconds, 30 minutes
         # # # # # # # # #
 
         # Update Reddit and Twitter feeds #
+
+        def rheadlinez():
+            fo = open('bin/headlines.txt','wb')
+            reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
+                                client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
+            for submission in reddit.subreddit(subreddit).hot(limit=10):
+                fo.write(submission.title.encode("utf-8")+b'\n')
+            fo.close()
+        hlz_timer = QtCore.QTimer()
+        hlz_timer.timeout.connect(rheadlinez)
+        hlz_timer.start(3600*1000)  # Time in seconds * 1000 for milliseconds, 60 minutes, 1 Hour
+
         def update_label():
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText("/r/"+subreddit+": "+reddit_content)
-
         timer = QtCore.QTimer() # Make a timer
         timer.timeout.connect(update_label) # Once time is up run the function
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
@@ -289,12 +357,12 @@ def main():
 
 # Launch Control #
 if fboot == 'Enable':
-    print("This is the first boot! Running Setup.py...")
+    print("This is the first boot! Running Setup.py...") # Thanks for trying it out.
     time.sleep(1)
     print()
     os.system('python setup.py 1')
 elif fboot == 'Disable':
-    print("Not first boot.. Loading settings. ")
+    print("Not first boot.. Loading settings. ") # Woop.
     print()
     time.sleep(1)
     startup()
