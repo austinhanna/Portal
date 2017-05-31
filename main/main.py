@@ -155,15 +155,15 @@ def main():
         weather_desc.setPalette(fontp)
 
         # Geometry!
-        la2.setGeometry(10,0,1920,150)
+        la2.setGeometry(10,50,1920,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(10,800,1920,500)
-        time_la.setGeometry(700,0,1920,100)
-        weather_city.setGeometry(1380,5,1920,100)
-        weather_temp.setGeometry(1400,45,1920,100)
-        weather_humid.setGeometry(1700,5,1920,100)
-        weather_desc.setGeometry(1700,45,1920,100)
+        headline.setGeometry(10,1000,1920,75)
+        time_la.setGeometry(700,0,1920,50)
+        weather_city.setGeometry(1380,0,1920,50)
+        weather_temp.setGeometry(1400,40,1920,50)
+        weather_humid.setGeometry(1700,0,1920,50)
+        weather_desc.setGeometry(1700,40,1920,50)
 
         # Begin setting labels
         def goodmorning():
@@ -177,7 +177,7 @@ def main():
 
         la1.setFont(font)
         la1.setPalette(fontp) # Set label to palette
-        la1.setGeometry(10,0,1920,50)
+        la1.setGeometry(10,0,1920,75)
         la2.setText(u_name)
         timer_timer = QtCore.QTimer()
         timer_timer.timeout.connect(goodmorning)
@@ -238,28 +238,28 @@ def main():
             elif read['main']['temp']-273.15 >= 100:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-        wth_tmp_img.setGeometry(1340,75,100,40)
+        wth_tmp_img.setGeometry(1340,40,100,50)
 
         # Set icon to corresponding weather #
         wth_desc = read['weather'][0]['description']
         if 'cloud' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
         elif 'clear sky' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
         elif 'rain' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
         elif 'thunder' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
         elif 'snow' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-            wth_dsc_img.setGeometry(1550,50,1920,70)
+            wth_dsc_img.setGeometry(1550,30,1920,50)
 
         def wthtime():
             weather_city.setText(read['name'])
@@ -293,28 +293,28 @@ def main():
                 elif read['main']['temp']-273.15 >= 100:
                     wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-            wth_tmp_img.setGeometry(1340,75,100,40)
+            wth_tmp_img.setGeometry(1340,40,100,50)
 
             # Set icon to corresponding weather #
             wth_desc = read['weather'][0]['description']
             if 'cloud' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
             elif 'clear sky' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Sun.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
             elif 'rain' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Rain.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
             elif 'thunder' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Lightning.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
             elif 'snow' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
             elif 'mist' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-                wth_dsc_img.setGeometry(1550,50,1920,70)
+                wth_dsc_img.setGeometry(1550,30,1920,50)
         wth_timer = QtCore.QTimer()
         wth_timer.timeout.connect(wthtime)
         wth_timer.start(1800*1000)  # Time in seconds * 1000 for milliseconds, 30 minutes
