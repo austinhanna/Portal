@@ -103,35 +103,37 @@ def main():
         # Create our elements #
         w = QtWidgets.QWidget() # The window
 
-        la1 = QtWidgets.QLabel(w) # Label 1
-        tweet = QtWidgets.QLabel(w) # Label "Tweet"
-        headline = QtWidgets.QLabel(w) # Label "Reddit"
-        la2 = QtWidgets.QLabel(w) # Label "Reddit"
-        time_la = QtWidgets.QLabel(w) # Label "Time"
-        wth_dsc_img = QtWidgets.QLabel(w)
+        # Labels hold text and can also show us images. How cool!
+        la1 = QtWidgets.QLabel(w) # Label - "Welcome"
+        tweet = QtWidgets.QLabel(w) # Label - "Tweet"
+        headline = QtWidgets.QLabel(w) # Label - "Reddit"
+        la2 = QtWidgets.QLabel(w) # Label - "Reddit"
+        time_la = QtWidgets.QLabel(w) # Label - "Time"
+        wth_dsc_img = QtWidgets.QLabel(w) # Image - Weather Icon
 
-        weather_city = QtWidgets.QLabel(w)
-        weather_temp = QtWidgets.QLabel(w)
-        weather_humid = QtWidgets.QLabel(w)
-        weather_desc = QtWidgets.QLabel(w)
-        wth_tmp_img = QtWidgets.QLabel(w)
+        weather_city = QtWidgets.QLabel(w) # Label - "Weather/City Name"
+        weather_temp = QtWidgets.QLabel(w) # Label - "Weather/Temperature"
+        weather_humid = QtWidgets.QLabel(w) # Label - "Weather/Humidity"
+        weather_desc = QtWidgets.QLabel(w) # Label - "Weather/Description"
+        wth_tmp_img = QtWidgets.QLabel(w) # Label - "Weather/Thermometer Image"
 
         font = QtGui.QFont() # Make font element
-        fontp = QtGui.QPalette()
+        fontp = QtGui.QPalette() # Make new pallete for the first font
         font.setFamily("Tahoma") # Set Font
-        font.setPointSize(30)
-        font.setBold(False) # Bold?
+        font.setPointSize(30) # Set font size
+        font.setBold(False) # Bold? No way Jose
 
         font2 = QtGui.QFont() # Make font element
         font2.setFamily("Tahoma") # Set Font
-        font2.setPointSize(24)
-        font2.setBold(False) # Bold?
+        font2.setPointSize(24) # Set font size
+        font2.setBold(False) # Nope.
 
         lt_font = QtGui.QFont() # Make font element
         lt_font.setFamily("Tahoma") # Set Font
-        lt_font.setPointSize(16)
-        lt_font.setBold(False) # Bold?
+        lt_font.setPointSize(16) # Set font size
+        lt_font.setBold(False) # Nah.
 
+        # Set labels to fonts.
         la1.setFont(font)
         la2.setFont(font2)
         tweet.setFont(lt_font)
@@ -142,32 +144,35 @@ def main():
         weather_humid.setFont(lt_font)
         weather_desc.setFont(lt_font)
 
+        # Set labels to pallete's
         fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white) # Label Color
         la1.setPalette(fontp) # Set label to palette
         la2.setPalette(fontp) # Set label to palette
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
         time_la.setPalette(fontp)
-
         weather_city.setPalette(fontp)
         weather_temp.setPalette(fontp)
         weather_humid.setPalette(fontp)
         weather_desc.setPalette(fontp)
 
+        # Geometry!
         la1.move(10,10)
         la2.move(10,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(10,800,1920,500)
         time_la.setGeometry(700,0,1920,100)
-
         weather_city.setGeometry(1380,5,1920,100)
         weather_temp.setGeometry(1400,45,1920,100)
         weather_humid.setGeometry(1700,5,1920,100)
         weather_desc.setGeometry(1700,45,1920,100)
 
+        # Begin setting labels
         la1.setText("Welcome,")
         la2.setText(u_name)
+
+        # Set the title of the window.
         w.setWindowTitle("Main") # Set window title text
 
         def time():
