@@ -35,7 +35,6 @@ def configurator():
     print("First, we will ask some simple questions.")
     time.sleep(3)
     print()
-    ###
 
     ### User input ###
     u_name = input('What should I call you? ')
@@ -49,16 +48,22 @@ def configurator():
     print("Please answer each with a True/False")
     time.sleep(2)
     print()
+
     time_en = input('Would you like to enable the Time module?(True/False) ')
     print()
+
     weath_en = input('Would you like to enable the Weather module?(True/False) ')
     if weath_en == 'True' or weath_en == 'true' or weath_en == 't' or weath_en == 'T':
         print("")
         city = input('For which City/Town do you want to see weather from? ')
         unit = input('Celsius or Fareinheit? (C/F) ')
         owm_api_key = input('OWM API Key? ')
-
+    else:
+        city = 'nil'
+        unit = 'nil'
+        owm_api_key = 'nil'
     print()
+
     twit_en = input('Would you like to enable the Twitter module?(True/False) ')
     if twit_en == 'True':
         print("Paste keys as is and make sure there's no extra spaces!")
@@ -76,20 +81,26 @@ def configurator():
         atok = 'nil'
         asec = 'nil'
         keyword = 'nil'
-
     print()
+
     reddit_en = input('Would you like to enable the Reddit module?(True/False) ')
     if reddit_en == 'True':
         print("Write subreddit as is do not write /r/.")
         subreddit = input("Which subreddit would you like to see headlines from? (Default /r/all) ")
-
+    else:
+        subreddit = 'nil'
     print()
+
     ssh_en = input('Would you like to enable SSH? (True/False) ')
     if ssh_en == 'True' or ssh_en == 'T' or ssh_en == 'Y':
         print()
         ssh_user = input("Write your *NEW* username. (Note: Default is magic) ")
         ssh_pass = input("Write your *NEW* password. (Note: Default is mirror) ")
+    else:
+        ssh_user = 'nil'
+        ssh_pass = 'nil'
     print()
+
     print('Writing to file...')
     time.sleep(1)
     print()
@@ -101,16 +112,21 @@ def configurator():
     return weath_en
     return twit_en
     return reddit_en
+    return ssh_en
+
     return u_name
     return subreddit
+
     return ckey
     return csec
     return atok
     return asec
     return keyword
+
+    return unit
     return city
     return owm_api_key
-    return unit
+
     return ssh_user
     return ssh_pass
 configurator()
@@ -132,10 +148,11 @@ def cunfig():
 
     # General Settings #
     config['General']['firstboot'] = 'Disable'
+
     config['General']['SSH Username'] = ssh_user
     config['General']['SSH Password'] = ssh_pass
+    
     # Placement Settings #
-
     config['Placement']['top_left'] = 'nil'
     config['Placement']['top_right'] = 'nil'
     config['Placement']['bottom_left'] = 'nil'

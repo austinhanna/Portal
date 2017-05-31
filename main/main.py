@@ -357,10 +357,10 @@ def main():
 
 # Launch Control #
 if fboot == 'Enable':
-    print("This is the first boot! Running Setup.py...") # Thanks for trying it out.
+    print("Setup has not been run. Please run setup @ setup.py!") # Thanks for trying it out.
     time.sleep(1)
     print()
-    os.system('python setup.py 1')
+
 elif fboot == 'Disable':
     print("Not first boot.. Loading settings. ") # Woop.
     print()
