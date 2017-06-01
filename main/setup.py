@@ -153,7 +153,6 @@ def cunfig():
     config['General'] = {}
     config['User Data'] = {}
     config['Placement'] = {}
-    config['Modules'] = {}
     config['Time Module'] = {}
     config['Weather Module'] = {}
     config['Twitter Module'] = {}
@@ -179,12 +178,6 @@ def cunfig():
     config['Placement']['bottom_right'] = 'nil'
     config['Placement']['middle'] = 'nil'
     config['Placement']['bottom'] = 'nil'
-
-    # Modules #
-    config['Modules']['time'] = time_en
-    config['Modules']['weather'] = weath_en
-    config['Modules']['twitter_feed'] = twit_en
-    config['Modules']['reddit'] = reddit_en
 
     # Time Module #
     if time_en == 'True' or 'Y' or 'Yes':

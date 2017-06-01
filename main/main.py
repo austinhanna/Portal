@@ -160,10 +160,10 @@ def main():
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(10,1000,1920,75)
         time_la.setGeometry(700,0,1920,50)
-        weather_city.setGeometry(1380,0,1920,50)
-        weather_temp.setGeometry(1400,40,1920,50)
-        weather_humid.setGeometry(1700,0,1920,50)
-        weather_desc.setGeometry(1700,40,1920,50)
+        weather_city.setGeometry(600,0,1920,50)
+        weather_temp.setGeometry(600,40,1920,50)
+        weather_humid.setGeometry(700,0,1920,50)
+        weather_desc.setGeometry(700,40,1920,50)
 
         # Begin setting labels
         def goodmorning():
