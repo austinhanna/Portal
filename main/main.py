@@ -159,7 +159,7 @@ def main():
         la2.setGeometry(10,50,1920,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(10,1800,1920,75)
+        headline.setGeometry(10,1700,1920,75)
         time_la.setGeometry(675,0,1920,50)
         weather_city.setGeometry(600,50,1920,50)
         weather_temp.setGeometry(600,90,1920,50)
@@ -333,7 +333,7 @@ def main():
                 tweet_content = tweet_file.read()
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
-            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,60))
+            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,55))
         timer = QtCore.QTimer() # Make a timer
         timer.timeout.connect(update_label) # Once time is up run the function
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
