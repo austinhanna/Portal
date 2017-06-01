@@ -242,7 +242,6 @@ def main():
         wth_tmp_img.setGeometry(675,90,1920,50)
 
         # Set icon to corresponding weather #
-        # weather_city.setGeometry(600,50,1920,50)
         wth_desc = read['weather'][0]['description']
         if 'cloud' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud.svg'))
@@ -259,6 +258,9 @@ def main():
         wth_dsc_img.setGeometry(750,70,1920,50)
 
         def wthtime():
+            requests.get(url) # Re-Get Updated data
+            data.json() # Get-it
+
             weather_city.setText(read['name'])
             if unit == 'C' or unit == 'Celsius':
                 weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
@@ -266,6 +268,7 @@ def main():
                 weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
             weather_humid.setText(str(read['main']['humidity'])+'%')
             weather_desc.setText(read['weather'][0]['description'])
+
             # Set thermometer icon to corresponding temperature
             if unit == 'C' or 'Celsius':
                 if read['main']['temp']-273.15 < 5:
@@ -306,7 +309,6 @@ def main():
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
             elif 'mist' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-
             wth_dsc_img.setGeometry(750,70,1920,50)
 
         wth_timer = QtCore.QTimer()
