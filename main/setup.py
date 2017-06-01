@@ -10,6 +10,10 @@ def configurator():
     global twit_en
     global reddit_en
     global subreddit
+    global limit
+    global client_id
+    global client_sec
+    global uagent
     global u_name
     global ckey
     global csec
@@ -87,11 +91,20 @@ def configurator():
     if reddit_en == 'True':
         print("Write subreddit as is do not write /r/.")
         subreddit = input("Which subreddit would you like to see headlines from? (Default /r/all) ")
+        limit = input("How many posts would you like to see? ")
+        print('Now we need your Client ID and Secret, along with a name for us. You can get this off the settings page and find your API key')
+        uagent = input('(We reccomend just "Portal")Name: ')
+        client_id = input('(NOT YOUR /u/)Client ID: ')
+        client_sec = input('(OR YOUR PASSWORD.)Client Secret: ')
     else:
         subreddit = 'nil'
+        limit = 'nil'
+        uagent = 'nil'
+        client_id = 'nil'
+        client_sec = 'nil'
     print()
 
-    ssh_en = input('Would you like to enable SSH? (True/False) ')
+    ssh_en = input('Would you like to change SSH details? (True/False) ')
     if ssh_en == 'True' or ssh_en == 'T' or ssh_en == 'Y':
         print()
         ssh_user = input("Write your *NEW* username. (Note: Default is magic) ")
@@ -103,7 +116,6 @@ def configurator():
 
     print('Writing to file...')
     time.sleep(1)
-    print()
     print("DONE!")
     print()
 
@@ -116,6 +128,10 @@ def configurator():
 
     return u_name
     return subreddit
+    return limit
+    return uagent
+    return client_id
+    return client_sec
 
     return ckey
     return csec
@@ -146,12 +162,16 @@ def cunfig():
 
     # # # # # # # # # # # # # # # # #
 
-    # General Settings #
-    config['General']['firstboot'] = 'Disable'
+    # User Data Module #
+    config['User Data']['Name'] = u_name
+    # # # # # # # # # #
 
-    config['General']['SSH Username'] = ssh_user
+    # General Settings #
+    config['General']['firstboot'] = 'Disable' # Disable this so we don't cuck it.
+    config['General']['SSH Username'] = ssh_user # RPI?
     config['General']['SSH Password'] = ssh_pass
-    
+    # # # # # # # # # #
+
     # Placement Settings #
     config['Placement']['top_left'] = 'nil'
     config['Placement']['top_right'] = 'nil'
@@ -161,43 +181,65 @@ def cunfig():
     config['Placement']['bottom'] = 'nil'
 
     # Modules #
-
     config['Modules']['time'] = time_en
     config['Modules']['weather'] = weath_en
     config['Modules']['twitter_feed'] = twit_en
     config['Modules']['reddit'] = reddit_en
 
     # Time Module #
-    config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
-    config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
+    if time_en == 'True' or 'Y' or 'Yes':
+        config['Time Module']['local_time'] = 'Enabled' # Should stay enabled unless you want the current time on mars for some reason...
+        #config['Time Module']['get_from_system'] = 'Enabled' # If enabled then the module will pull the current time from the PC rather than the internet. This can be reliable if there is no internet connection.
+    elif time_en == 'False' or 'N' or 'No':
+        config['Time Module']['local_time'] = 'Disabled'
+    # # # # # # # # # #
 
     # Weather Module #
-    config['Weather Module']['local_weather'] = 'Enabled'
+    if weath_en == 'True' or 'Y' or 'Yes':
+        config['Weather Module']['local_weather'] = 'Enabled'
+    elif weath_en == 'False' or 'N' or 'No':
+        config['Weather Module']['local_weather'] = 'Disabled'
+    else:
+        config['Weather Module']['local_weather'] = 'Enabled'
     config['Weather Module']['city_name'] = city
     config['Weather Module']['units'] = unit
     config['Weather Module']['apikey'] = '40460bd21017b5384bdfcbf78da21cc8'
-
+    # # # # # # # # # #
 
     # Twitter Module #
-    config['Twitter Module']['twitter_live_feed'] = 'Enabled'
+    if twit_en == 'True' or 'Y' or 'Yes':
+        config['Twitter Module']['twitter_live_feed'] = 'Enabled'
+    elif twit_en == 'False' or 'N' or 'No':
+        config['Twitter Module']['twitter_live_feed'] = 'Disabled'
+    else:
+        config['Twitter Module']['twitter_live_feed'] = 'Enabled'
+
     config['Twitter Module']['keyword'] = keyword
     config['Twitter Module']['live_feed_word'] = 'nil'
     config['Twitter Module']['live_feed_trending'] = 'Disabled'
     config['Twitter Module']['live_feed_people'] = 'Disabled'
     config['Twitter Module']['live_feed_person'] = '@nil'
 
-    # Twitter Auth #
     config['Twitter Auth']['ckey'] = ckey
     config['Twitter Auth']['csec'] = csec
     config['Twitter Auth']['atok'] = atok
     config['Twitter Auth']['asec'] = asec
+    # # # # # # # # # #
 
     # Reddit Module #
-    config['Reddit Module']['Active'] = 'nil'
-    config['Reddit Module']['Subreddit'] = subreddit
+    if reddit_en == 'True' or 'Y' or 'Yes':
+        config['Reddit Module']['Enabled'] = 'Enabled'
+    elif reddit_en == 'False' or 'F' or 'no' or 'n':
+        config['Reddit Module']['Enabled'] = 'Disabled'
+    else:
+        config['Reddit Module']['Enabled'] = 'Enabled'
 
-    # User Data Module #
-    config['User Data']['Name'] = u_name
+    config['Reddit Module']['Subreddit'] = subreddit
+    config['Reddit Module']['Limit'] = limit
+    config['Reddit Module']['PrjName'] = uagent
+    config['Reddit Module']['Client ID'] = client_id
+    config['Reddit Module']['Client Password'] = client_sec
+    # # # # # # # # # #
 
     with open('bin/config.ini', 'w') as configfile:
         config.write(configfile)

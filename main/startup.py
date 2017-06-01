@@ -58,7 +58,7 @@ def startup():
     la2.setPalette(fontp) # Set label to palette
     la2.setGeometry(960,0,2500,600) # Label size and positioning
     la2.setFont(font)
-    la2.setText("SSSH Username: "+sshuser)
+    la2.setText("SSH Username: "+sshuser)
 
     la3.setPalette(fontp) # Set label to palette
     la3.setGeometry(960,0,2500,700) # Label size and positioning
