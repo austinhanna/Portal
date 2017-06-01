@@ -163,8 +163,8 @@ def main():
         time_la.setGeometry(675,0,1920,50)
         weather_city.setGeometry(600,50,1920,50)
         weather_temp.setGeometry(600,90,1920,50)
-        weather_humid.setGeometry(900,50,1920,50)
-        weather_desc.setGeometry(900,90,1920,50)
+        weather_humid.setGeometry(850,50,1920,50)
+        weather_desc.setGeometry(850,90,1920,50)
 
         # Begin setting labels
         def goodmorning():
@@ -255,7 +255,7 @@ def main():
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-        wth_dsc_img.setGeometry(750,70,1920,50)
+        wth_dsc_img.setGeometry(775,70,1920,50)
 
         def wthtime():
             requests.get(url) # Re-Get Updated data
@@ -309,7 +309,7 @@ def main():
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
             elif 'mist' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-            wth_dsc_img.setGeometry(750,70,1920,50)
+            wth_dsc_img.setGeometry(775,70,1920,50)
 
         wth_timer = QtCore.QTimer()
         wth_timer.timeout.connect(wthtime)
