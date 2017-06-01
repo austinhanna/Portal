@@ -159,7 +159,7 @@ def main():
         la2.setGeometry(10,50,1920,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(10,1700,1920,75)
+        headline.setGeometry(10,1800,1920,75)
         time_la.setGeometry(675,0,1920,50)
         weather_city.setGeometry(600,50,1920,50)
         weather_temp.setGeometry(600,90,1920,50)
