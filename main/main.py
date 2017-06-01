@@ -160,7 +160,7 @@ def main():
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(10,1800,1920,75)
-        time_la.setGeometry(650,0,1920,50)
+        time_la.setGeometry(675,0,1920,50)
         weather_city.setGeometry(600,50,1920,50)
         weather_temp.setGeometry(600,90,1920,50)
         weather_humid.setGeometry(900,50,1920,50)
@@ -239,7 +239,7 @@ def main():
             elif read['main']['temp']-273.15 >= 100:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-        wth_tmp_img.setGeometry(550,90,1920,50)
+        wth_tmp_img.setGeometry(525,90,1920,50)
 
         # Set icon to corresponding weather #
         # weather_city.setGeometry(600,50,1920,50)
@@ -290,7 +290,7 @@ def main():
                 elif read['main']['temp']-273.15 >= 100:
                     wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-            wth_tmp_img.setGeometry(550,90,1920,50)
+            wth_tmp_img.setGeometry(525,90,1920,50)
 
             # Set icon to corresponding weather #
             wth_desc = read['weather'][0]['description']
