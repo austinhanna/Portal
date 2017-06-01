@@ -239,7 +239,7 @@ def main():
             elif read['main']['temp']-273.15 >= 100:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-        wth_tmp_img.setGeometry(525,90,1920,50)
+        wth_tmp_img.setGeometry(625,90,1920,50)
 
         # Set icon to corresponding weather #
         # weather_city.setGeometry(600,50,1920,50)
@@ -290,7 +290,7 @@ def main():
                 elif read['main']['temp']-273.15 >= 100:
                     wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-            wth_tmp_img.setGeometry(525,90,1920,50)
+            wth_tmp_img.setGeometry(625,90,1920,50)
 
             # Set icon to corresponding weather #
             wth_desc = read['weather'][0]['description']
