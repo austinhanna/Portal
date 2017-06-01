@@ -333,7 +333,7 @@ def main():
                 tweet_content = tweet_file.read()
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
-            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,55))
+            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,75))
         timer = QtCore.QTimer() # Make a timer
         timer.timeout.connect(update_label) # Once time is up run the function
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
