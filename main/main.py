@@ -54,10 +54,10 @@ wth_api = cfg.get('Weather Module', 'apikey')
 
 # Logging #
 now = datetime.datetime.now()
-tyme = now.strftime("%Y-%m-%H-%M-%S")
-lo = open("bin/logs/logs_"+now.strftime("%Y-%m-%H-%M")+".txt",'w')
+tyme = now.strftime("%H-%M-%S")
+lo = open("bin/logs/log_"+now.strftime("%Y-%m-%d-%H-%M")+".txt",'w')
 lo.close()
-lo = open("bin/logs/logs_"+now.strftime("%Y-%m-%H-%M")+".txt",'a')
+lo = open("bin/logs/log_"+now.strftime("%Y-%m-%d-%H-%M")+".txt",'a')
 
 # Stream isn't workin' fella... find a way to put the class into the thingo below.
 class listener(StreamListener):
