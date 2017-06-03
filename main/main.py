@@ -255,7 +255,7 @@ def main():
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-        wth_dsc_img.setGeometry(750,70,1920,50)
+        wth_dsc_img.setGeometry(750,70,100,50)
 
         def wthtime():
             requests.get(url) # Re-Get Updated data
@@ -309,7 +309,7 @@ def main():
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
             elif 'mist' in wth_desc:
                 wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-            wth_dsc_img.setGeometry(750,70,1920,50)
+            wth_dsc_img.setGeometry(750,70,100,50)
 
         wth_timer = QtCore.QTimer()
         wth_timer.timeout.connect(wthtime)
