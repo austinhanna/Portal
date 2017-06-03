@@ -51,6 +51,14 @@ city = cfg.get('Weather Module', 'city_name')
 unit = cfg.get('Weather Module', 'units')
 wth_api = cfg.get('Weather Module', 'apikey')
 
+
+# Logging #
+now = datetime.datetime.now()
+tyme = now.strftime("%Y-%m-%H-%M-%S")
+lo = open("bin/logs/logs_"+now.strftime("%Y-%m-%H-%M")+".txt",'w')
+lo.close()
+lo = open("bin/logs/logs_"+now.strftime("%Y-%m-%H-%M")+".txt",'a')
+
 # Stream isn't workin' fella... find a way to put the class into the thingo below.
 class listener(StreamListener):
     def on_data(self, data):
@@ -69,15 +77,20 @@ class listener(StreamListener):
         print (status)
 
 def rheadline():
+    lo.write("["+tyme+"]: "+"Gathering Reddit Data (First Time)\n")
     fo = open('bin/headlines.txt','wb')
     reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
                         client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
     for submission in reddit.subreddit(subreddit).hot(limit=10):
         fo.write(submission.title.encode("utf-8")+b'\n')
     print("Done with Reddit!")
+    lo.write("["+tyme+"]: "+"Gathered Successfully.\n")
     fo.close()
 
 def startup():
+    lo.write("\n")
+    lo.write("["+tyme+"]: "+"STARTUP MODULE\n")
+    lo.write("["+tyme+"]: "+"Initializing..\n")
     words = "Loading Settings"
     for char in words:
         time.sleep(0.15)
@@ -92,13 +105,18 @@ def startup():
         sys.stdout.write(char)
         sys.stdout.flush()
     print("Done!")
+    lo.write("["+tyme+"]: "+"Gathered all Data successfully.\n")
     print()
+    lo.write("["+tyme+"]: "+"Launching into GUI...\n")
     print("Launching into GUI...")
     time.sleep(1)
     main()
 
 def main():
     def parentmodule():
+        lo.write("\n")
+        lo.write("["+tyme+"]: "+"MAIN MODULE.\n")
+        lo.write("["+tyme+"]: "+"Setting all variables.\n")
         app = QtWidgets.QApplication(sys.argv)
 
         # Create our elements #
@@ -166,20 +184,23 @@ def main():
         weather_humid.setGeometry(850,50,1920,50)
         weather_desc.setGeometry(850,90,1920,50)
 
+        lo.write("["+tyme+"]: "+"All variables set.\n")
+
         # Begin setting labels
         def goodmorning():
             currentTime = datetime.datetime.now()
             if currentTime.hour < 12:
-                la1.setText("Good Morning,")
+                la1.setText("Goodmorning,")
             elif 12 <= currentTime.hour < 18:
                 la1.setText("Good Afternoon,")
             else:
-                la1.setText("Good Evening,")
+                la1.setText("Goodnight,")
 
         la1.setFont(font)
         la1.setPalette(fontp) # Set label to palette
         la1.setGeometry(10,0,1920,75)
         la2.setText(u_name)
+
         timer_timer = QtCore.QTimer()
         timer_timer.timeout.connect(goodmorning)
         timer_timer.start(500) # Check for new tweet/headline every second
@@ -203,6 +224,8 @@ def main():
         headline.setText("Loading..")
 
         # Weather Data #
+        lo.write("["+tyme+"]: "+"Gathering Weather Data... (First time)\n")
+
         url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+wth_api
         data = requests.get(url)
         read = data.json()
@@ -210,10 +233,14 @@ def main():
         weather_city.setText(read['name'])
         if unit == 'C' or unit == 'Celsius':
             weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+            lo.write("["+tyme+"]: "+str(read['main']['temp']-273.15)+'°C'+"\n")
         elif unit == 'F' or unit == 'Fareinheit':
             weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
+            lo.write("["+tyme+"]: "+str(read['main']['temp']*9/5-459.67)[:4]+'°F'+"\n")
         weather_humid.setText(str(read['main']['humidity'])+'%')
         weather_desc.setText(read['weather'][0]['description'])
+        lo.write("["+tyme+"]: "+str(read['main']['humidity'])+'%'+"\n")
+        lo.write("["+tyme+"]: "+read['weather'][0]['description']+"\n")
 
         # Set thermometer icon to corresponding temperature
         if unit == 'C' or 'Celsius':
@@ -258,16 +285,21 @@ def main():
         wth_dsc_img.setGeometry(750,70,100,50)
 
         def wthtime():
+            lo.write("["+tyme+"]: "+"Gathering Weather Data... (Automatic)\n")
             requests.get(url) # Re-Get Updated data
             data.json() # Get-it
 
             weather_city.setText(read['name'])
             if unit == 'C' or unit == 'Celsius':
                 weather_temp.setText(str(read['main']['temp']-273.15)+'°C')
+                lo.write("["+tyme+"]: "+str(read['main']['temp']-273.15)+'°C'+"\n")
             elif unit == 'F' or unit == 'Fareinheit':
                 weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
+                lo.write("["+tyme+"]: "+str(read['main']['temp']*9/5-459.67)[:4]+'°F'+"\n")
             weather_humid.setText(str(read['main']['humidity'])+'%')
             weather_desc.setText(read['weather'][0]['description'])
+            lo.write("["+tyme+"]: "+str(read['main']['humidity'])+'%'+"\n")
+            lo.write("["+tyme+"]: "+read['weather'][0]['description']+"\n")
 
             # Set thermometer icon to corresponding temperature
             if unit == 'C' or 'Celsius':
@@ -318,11 +350,14 @@ def main():
 
         # Update Reddit and Twitter feeds #
         def rheadlinez():
+            lo.write("["+tyme+"]: "+"Gathering Reddit Data (Automatic)\n")
             fo = open('bin/headlines.txt','wb')
             reddit = praw.Reddit(user_agent='Portal Reddit Module (by /u/Swagmanhanna)',
                                 client_id='9EASNimdp6ItMw', client_secret="cuuiAqw8QCq3f8jDMbU0uV4uLWA")
             for submission in reddit.subreddit(subreddit).hot(limit=10):
                 fo.write(submission.title.encode("utf-8")+b'\n')
+            print("Done with Reddit!")
+            lo.write("["+tyme+"]: "+"Gathered Successfully.\n")
             fo.close()
         hlz_timer = QtCore.QTimer()
         hlz_timer.timeout.connect(rheadlinez)
@@ -334,6 +369,7 @@ def main():
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
             headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,55))
+            lo.write("["+tyme+"]: "+"Setting title to: "+reddit_content+"\n")
         timer = QtCore.QTimer() # Make a timer
         timer.timeout.connect(update_label) # Once time is up run the function
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
@@ -347,21 +383,24 @@ def main():
         twitterStream = Stream(auth, listener()) # Initiate Twitter Stream
         twitterStream.filter(track=[keyword]) # Filter tweets
 
+        lo.write("["+tyme+"]: "+"Launching.\n")
         print("Main Launched") # Huston, we don't have a problem.
     parentmodule() # Full speed ahead.
 
 # Launch Control #
 if fboot == 'Enable':
+    lo.write("["+tyme+"]: "+"Firstboot Found! Launch Setup.py!!!")
     print("Setup has not been run. Please run setup @ setup.py!") # Thanks for trying it out.
     time.sleep(1)
     print()
-
 elif fboot == 'Disable':
+    lo.write("["+tyme+"]: "+"Not firstboot! Let's go!")
     print("Not first boot.. Loading settings. ") # Woop.
     print()
     time.sleep(1)
     startup()
 else:
+    lo.write("["+tyme+"]: "+"Can't tell if Fboot or not... Please check your config.ini or run startup.py!")
     print("Corrupted!!!")
     time.sleep(1)
     print("Something broke in the code. Try running the setup again.") # Don't be an idiot.
