@@ -127,6 +127,7 @@ def main():
         headline = QtWidgets.QLabel(w) # Label - "Reddit"
         la2 = QtWidgets.QLabel(w) # Label - "Reddit"
         time_time = QtWidgets.QLabel(w) # Label - "Time"
+        time_time_s = QtWidgets.QLabel(w) # Label - "Time, Seconds"
         time_day = QtWidgets.QLabel(w) # Label - "Day"
         time_date = QtWidgets.QLabel(w) # Label - ""
         wth_dsc_img = QtWidgets.QLabel(w) # Image - Weather Icon
@@ -169,6 +170,7 @@ def main():
         tweet.setFont(lt_font)
         headline.setFont(font4)
         time_time.setFont(font2)
+        time_time_s.setFont(lt_font)
         time_day.setFont(font3)
         time_date.setFont(lt_font)
         weather_city.setFont(lt_font)
@@ -182,6 +184,7 @@ def main():
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
         time_time.setPalette(fontp)
+        time_time_s.setPalette(fontp)
         time_day.setPalette(fontp)
         time_date.setPalette(fontp)
         weather_city.setPalette(fontp)
@@ -195,7 +198,8 @@ def main():
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(600,200,1920,500)
         time_time.setGeometry(600,10,1080,120)
-        time_day.setGeometry(605,120,1080,50)
+        time_time_s.setGeometry(700,10,1080,120)
+        time_day.setGeometry(605,140,1080,50)
         time_date.setGeometry(605,160,1920,50)
         weather_city.setGeometry(600,500,1920,50)
         weather_temp.setGeometry(600,540,1920,50)
@@ -231,6 +235,7 @@ def main():
         def time():
             now = datetime.datetime.now()
             time_time.setText(now.strftime("%H:%M"))
+            time_time_s.setText(now.strftime("%-S"))
             time_day.setText(now.strftime("%A"))
             time_date.setText(now.strftime("%d %B"))
         time_timer = QtCore.QTimer()
