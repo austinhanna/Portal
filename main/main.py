@@ -130,6 +130,7 @@ def main():
         time_day = QtWidgets.QLabel(w) # Label - "Day"
         time_date = QtWidgets.QLabel(w) # Label - ""
         wth_dsc_img = QtWidgets.QLabel(w) # Image - Weather Icon
+        snoo_img = QtWidgets.QLabel(w) # Image - Reddit Icon
         weather_city = QtWidgets.QLabel(w) # Label - "Weather/City Name"
         weather_temp = QtWidgets.QLabel(w) # Label - "Weather/Temperature"
         weather_humid = QtWidgets.QLabel(w) # Label - "Weather/Humidity"
@@ -144,8 +145,18 @@ def main():
 
         font2 = QtGui.QFont() # Make font element
         font2.setFamily("Helvetica") # Set Font
-        font2.setPointSize(32) # Set font size
+        font2.setPointSize(64) # Set font size
         font2.setBold(False) # Nope.
+
+        font3 = QtGui.QFont() # Make font element
+        font3.setFamily("Helvetica") # Set Font
+        font3.setPointSize(32) # Set font size
+        font3.setBold(False) # Nope.
+
+        font4 = QtGui.QFont() # Make font element
+        font4.setFamily("Helvetica") # Set Font
+        font4.setPointSize(12) # Set font size
+        font4.setBold(False) # Nope.
 
         lt_font = QtGui.QFont() # Make font element
         lt_font.setFamily("Helvetica") # Set Font
@@ -156,9 +167,9 @@ def main():
         la1 = QtWidgets.QLabel(w) # Label - "Welcome"
         la2.setFont(font)
         tweet.setFont(lt_font)
-        headline.setFont(lt_font)
-        time_time.setFont(lt_font)
-        time_day.setFont(font2)
+        headline.setFont(font4)
+        time_time.setFont(font2)
+        time_day.setFont(font3)
         time_date.setFont(lt_font)
         weather_city.setFont(lt_font)
         weather_temp.setFont(lt_font)
@@ -182,10 +193,10 @@ def main():
         la2.setGeometry(10,50,1920,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(10,1800,1920,75)
-        time_time.setGeometry(650,0,1920,50)
-        time_day.setGeometry(900,0,1080,50)
-        time_date.setGeometry(550,0,1920,50)
+        headline.setGeometry(600,200,1920,75)
+        time_time.setGeometry(600,10,1080,100)
+        time_day.setGeometry(605,100,1080,50)
+        time_date.setGeometry(605,140,1920,50)
         weather_city.setGeometry(600,500,1920,50)
         weather_temp.setGeometry(600,540,1920,50)
         weather_humid.setGeometry(850,500,1920,50)
@@ -372,13 +383,15 @@ def main():
         hlz_timer = QtCore.QTimer()
         hlz_timer.timeout.connect(rheadlinez)
         hlz_timer.start(3600*1000)  # Time in seconds * 1000 for milliseconds, 60 minutes, 1 Hour
+        snoo_img.setPixmap(QtGui.QPixmap("rsc/reddit_ico.svg"))
+        snoo_img.setGeometry(10,200,100,50)
 
         def update_label():
             with open('bin/tweet.txt', 'r',encoding="utf8") as tweet_file:
                 tweet_content = tweet_file.read()
             #tweet.setText(tweet_content) # Split this! Add @ and says.
             reddit_content = random.choice([f for f in open('bin/headlines.txt')])
-            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,55))
+            headline.setText("/r/"+subreddit+": "+textwrap.fill(reddit_content,30))
             lo.write("["+tyme+"]: "+"Setting title to: "+reddit_content+"\n")
         timer = QtCore.QTimer() # Make a timer
         timer.timeout.connect(update_label) # Once time is up run the function
