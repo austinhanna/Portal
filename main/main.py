@@ -235,7 +235,7 @@ def main():
         def time():
             now = datetime.datetime.now()
             time_time.setText(now.strftime("%H:%M"))
-            time_time_s.setText(now.strftime("%-S"))
+            time_time_s.setText(now.strftime("%S"))
             time_day.setText(now.strftime("%A"))
             time_date.setText(now.strftime("%d %B"))
         time_timer = QtCore.QTimer()
