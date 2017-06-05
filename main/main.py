@@ -135,7 +135,6 @@ def main():
         weather_city = QtWidgets.QLabel(w) # Label - "Weather/City Name"
         weather_temp = QtWidgets.QLabel(w) # Label - "Weather/Temperature"
         weather_humid = QtWidgets.QLabel(w) # Label - "Weather/Humidity"
-        weather_desc = QtWidgets.QLabel(w) # Label - "Weather/Description"
         wth_tmp_img = QtWidgets.QLabel(w) # Label - "Weather/Thermometer Image"
 
         font = QtGui.QFont() # Make font element
@@ -176,7 +175,6 @@ def main():
         weather_city.setFont(lt_font)
         weather_temp.setFont(lt_font)
         weather_humid.setFont(lt_font)
-        weather_desc.setFont(lt_font)
 
         # Set labels to pallete's
         fontp.setColor(QtGui.QPalette.Foreground,QtCore.Qt.white) # Label Color
@@ -190,21 +188,19 @@ def main():
         weather_city.setPalette(fontp)
         weather_temp.setPalette(fontp)
         weather_humid.setPalette(fontp)
-        weather_desc.setPalette(fontp)
 
         # Geometry!
         la2.setGeometry(10,50,1920,100)
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
-        headline.setGeometry(600,100,1920,500)
+        headline.setGeometry(600,50,1920,500)
         time_time.setGeometry(600,10,1080,120)
-        time_time_s.setGeometry(970,0,1080,120)
-        time_day.setGeometry(605,130,1080,80)
-        time_date.setGeometry(605,170,1920,50)
+        time_time_s.setGeometry(950,0,1080,120)
+        time_day.setGeometry(605,125,1080,80)
+        time_date.setGeometry(605,190,1920,50)
         weather_city.setGeometry(600,500,1920,50)
         weather_temp.setGeometry(600,540,1920,50)
         weather_humid.setGeometry(850,500,1920,50)
-        weather_desc.setGeometry(850,540,1920,50)
 
         lo.write("["+tyme+"]: "+"All variables set.\n")
 
@@ -266,7 +262,6 @@ def main():
             weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
             lo.write("["+tyme+"]: "+str(read['main']['temp']*9/5-459.67)[:4]+'°F'+"\n")
         weather_humid.setText(str(read['main']['humidity'])+'%')
-        weather_desc.setText(read['weather'][0]['description'])
         lo.write("["+tyme+"]: "+str(read['main']['humidity'])+'%'+"\n")
         lo.write("["+tyme+"]: "+read['weather'][0]['description']+"\n")
 
@@ -325,7 +320,6 @@ def main():
                 weather_temp.setText(str(read['main']['temp']*9/5-459.67)[:4]+'°F')
                 lo.write("["+tyme+"]: "+str(read['main']['temp']*9/5-459.67)[:4]+'°F'+"\n")
             weather_humid.setText(str(read['main']['humidity'])+'%')
-            weather_desc.setText(read['weather'][0]['description'])
             lo.write("["+tyme+"]: "+str(read['main']['humidity'])+'%'+"\n")
             lo.write("["+tyme+"]: "+read['weather'][0]['description']+"\n")
 
