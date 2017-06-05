@@ -126,9 +126,10 @@ def main():
         tweet = QtWidgets.QLabel(w) # Label - "Tweet"
         headline = QtWidgets.QLabel(w) # Label - "Reddit"
         la2 = QtWidgets.QLabel(w) # Label - "Reddit"
-        time_la = QtWidgets.QLabel(w) # Label - "Time"
+        time_time = QtWidgets.QLabel(w) # Label - "Time"
+        time_day = QtWidgets.QLabel(w) # Label - "Day"
+        time_date = QtWidgets.QLabel(w) # Label - ""
         wth_dsc_img = QtWidgets.QLabel(w) # Image - Weather Icon
-
         weather_city = QtWidgets.QLabel(w) # Label - "Weather/City Name"
         weather_temp = QtWidgets.QLabel(w) # Label - "Weather/Temperature"
         weather_humid = QtWidgets.QLabel(w) # Label - "Weather/Humidity"
@@ -137,17 +138,17 @@ def main():
 
         font = QtGui.QFont() # Make font element
         fontp = QtGui.QPalette() # Make new pallete for the first font
-        font.setFamily("Tahoma") # Set Font
+        font.setFamily("Helvetica") # Set Font
         font.setPointSize(26) # Set font size
         font.setBold(False) # Bold? No way Jose
 
         font2 = QtGui.QFont() # Make font element
-        font2.setFamily("Tahoma") # Set Font
-        font2.setPointSize(24) # Set font size
+        font2.setFamily("Helvetica") # Set Font
+        font2.setPointSize(32) # Set font size
         font2.setBold(False) # Nope.
 
         lt_font = QtGui.QFont() # Make font element
-        lt_font.setFamily("Tahoma") # Set Font
+        lt_font.setFamily("Helvetica") # Set Font
         lt_font.setPointSize(16) # Set font size
         lt_font.setBold(False) # Nah.
 
@@ -156,7 +157,9 @@ def main():
         la2.setFont(font)
         tweet.setFont(lt_font)
         headline.setFont(lt_font)
-        time_la.setFont(lt_font)
+        time_time.setFont(lt_font)
+        time_day.setFont(font2)
+        time_date.setFont(lt_font)
         weather_city.setFont(lt_font)
         weather_temp.setFont(lt_font)
         weather_humid.setFont(lt_font)
@@ -167,7 +170,9 @@ def main():
         la2.setPalette(fontp) # Set label to palette
         tweet.setPalette(fontp) # Set label to palette
         headline.setPalette(fontp) # Set label to palette
-        time_la.setPalette(fontp)
+        time_time.setPalette(fontp)
+        time_day.setPalette(fontp)
+        time_date.setPalette(fontp)
         weather_city.setPalette(fontp)
         weather_temp.setPalette(fontp)
         weather_humid.setPalette(fontp)
@@ -178,11 +183,13 @@ def main():
         tweet.move(860,1000)
         tweet.setGeometry(0,750,1920,500)
         headline.setGeometry(10,1800,1920,75)
-        time_la.setGeometry(650,0,1920,50)
-        weather_city.setGeometry(600,50,1920,50)
-        weather_temp.setGeometry(600,90,1920,50)
-        weather_humid.setGeometry(850,50,1920,50)
-        weather_desc.setGeometry(850,90,1920,50)
+        time_time.setGeometry(650,0,1920,50)
+        time_day.setGeometry(900,0,1080,50)
+        time_date.setGeometry(550,0,1920,50)
+        weather_city.setGeometry(600,500,1920,50)
+        weather_temp.setGeometry(600,540,1920,50)
+        weather_humid.setGeometry(850,500,1920,50)
+        weather_desc.setGeometry(850,540,1920,50)
 
         lo.write("["+tyme+"]: "+"All variables set.\n")
 
@@ -190,11 +197,11 @@ def main():
         def goodmorning():
             currentTime = datetime.datetime.now()
             if currentTime.hour < 12:
-                la1.setText("Goodmorning,")
+                la1.setText("Good Morning,")
             elif 12 <= currentTime.hour < 18:
                 la1.setText("Good Afternoon,")
             else:
-                la1.setText("Goodnight,")
+                la1.setText("Good Night,")
 
         la1.setFont(font)
         la1.setPalette(fontp) # Set label to palette
@@ -209,7 +216,10 @@ def main():
         w.setWindowTitle("Main") # Set window title text
 
         def time():
-            time_la.setText(QtCore.QDateTime.currentDateTime().toString())
+            now = datetime.datetime.now()
+            time_time.setText(now.strftime("%H:%M"))
+            time_day.setText(now.strftime("%A"))
+            time_date.setText(now.strftime("%d %B"))
         time_timer = QtCore.QTimer()
         time_timer.timeout.connect(time)
         time_timer.start(500)  # Check for new tweet/headline every second
@@ -266,7 +276,7 @@ def main():
             elif read['main']['temp']-273.15 >= 100:
                 wth_tmp_img.setPixmap(QtGui.QPixmap('rsc/climacons/Thermometer-100.svg'))
 
-        wth_tmp_img.setGeometry(675,90,1920,50)
+        wth_tmp_img.setGeometry(675,540,1920,50)
 
         # Set icon to corresponding weather #
         wth_desc = read['weather'][0]['description']
@@ -282,7 +292,7 @@ def main():
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Snow.svg'))
         elif 'mist' in wth_desc:
             wth_dsc_img.setPixmap(QtGui.QPixmap('rsc/climacons/Cloud-Drizzle.svg'))
-        wth_dsc_img.setGeometry(750,70,100,50)
+        wth_dsc_img.setGeometry(750,570,100,50)
 
         def wthtime():
             lo.write("["+tyme+"]: "+"Gathering Weather Data... (Automatic)\n")
@@ -375,7 +385,6 @@ def main():
         timer.start(5000)  # Check for new tweet/headline every 5 seconds
 
         sys.exit(app.exec_())
-
         auth = OAuthHandler(ckey, csecret) # Auth Twitter
         auth.set_access_token(atoken, asecret) # Auth Twitter
 
@@ -385,6 +394,7 @@ def main():
 
         lo.write("["+tyme+"]: "+"Launching.\n")
         print("Main Launched") # Huston, we don't have a problem.
+
     parentmodule() # Full speed ahead.
 
 # Launch Control #
