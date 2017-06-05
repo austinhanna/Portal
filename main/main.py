@@ -204,6 +204,7 @@ def main():
 
         lo.write("["+tyme+"]: "+"All variables set.\n")
 
+        """
         # Begin setting labels
         def goodmorning():
             currentTime = datetime.datetime.now()
@@ -218,7 +219,8 @@ def main():
         la1.setPalette(fontp) # Set label to palette
         la1.setGeometry(10,0,1920,75)
         la2.setText(u_name)
-
+        """
+        
         timer_timer = QtCore.QTimer()
         timer_timer.timeout.connect(goodmorning)
         timer_timer.start(500) # Check for new tweet/headline every second
