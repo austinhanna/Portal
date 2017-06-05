@@ -200,7 +200,7 @@ def main():
         time_time.setGeometry(600,10,1080,120)
         time_time_s.setGeometry(900,10,1080,120)
         time_day.setGeometry(605,130,1080,50)
-        time_date.setGeometry(605,170,1920,50)sssssssssssssssssssssssssss
+        time_date.setGeometry(605,170,1920,50)
         weather_city.setGeometry(600,500,1920,50)
         weather_temp.setGeometry(600,540,1920,50)
         weather_humid.setGeometry(850,500,1920,50)
