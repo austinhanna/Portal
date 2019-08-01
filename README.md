@@ -1,7 +1,3 @@
-# Revamp
-Portal: Magic Mirror is now being revamped with Kivy!
-There will be updates soon.
-
 # Portal
 My Magic Mirror Prototype!
 
