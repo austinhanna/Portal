@@ -88,7 +88,7 @@ def startup():
     sys.exit(app.exec_())
 
 def gotojail():
-    os.system("python main.py 1")
+    os.system("py main.py 1")
 
 fboot = config.get('General','firstboot')
 
